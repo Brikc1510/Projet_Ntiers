@@ -1,8 +1,15 @@
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <ul class="nav navbar-nav"><li>
-        <li><a href="interventions.php">Interventions</a></li>
-        <li><a href="">Comptes</a></li>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Pompier</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a href="">Profil</a></li>
+        <li><a href="">Mes Participation</a></li>
     </ul>
-</div>
-
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="logout.php"> Deconnecter</a></li>
+    </ul>
+  </div>
+</nav> 
 

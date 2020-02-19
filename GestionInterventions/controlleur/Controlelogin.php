@@ -1,5 +1,9 @@
 
   <?php
+    session_start();
+    $_SESSION['name']=$name;
+    echo $_SESSION['name'];
+
     include_once('users.php');
  
 

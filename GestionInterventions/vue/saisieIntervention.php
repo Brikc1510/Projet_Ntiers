@@ -1,3 +1,11 @@
+<?php
+ session_start();
+ if($_SESSION["user"]!=true)
+ {
+     header('location:index.php');
+ }
+
+?>
 <html>
 <head>
     <meta charset="UTF-8"/>
@@ -35,6 +43,9 @@
 ?>
 <div class="col-md-6 col-xs-12 col-md-offset-3 spacer" >
     <div class="panel panel-info">
+          <!-- affichage de login de l'utulisateur qui a connecte
+         <//?php echo "le login de la personne connecte est "; 
+				   echo $_SESSION['user'];?>  -->
         <div class="panel-heading"><h4>Saisie d'une intervention</h4></div>
         <div class="panel-body">
             <form method="post" action="../controlleur/saveIntervention.php"  >
@@ -69,7 +80,7 @@
                             }
                         echo '</select>';
                         
-                    
+                            
                         ?>
                 </div>
                 <div class="form-group">
@@ -127,7 +138,7 @@
                             }
                         echo '</select>';
                         
-                    
+                        
                         ?>
                 </div>
                 
@@ -175,4 +186,5 @@
     </div>
 </div>
 </body>
+
 </html>

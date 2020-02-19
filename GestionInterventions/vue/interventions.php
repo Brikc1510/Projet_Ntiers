@@ -1,4 +1,9 @@
 <?php
+ session_start();
+ if($_SESSION["user"]!=true)
+ {
+     header('location:index.php');
+ }
 
 ?>
 
@@ -9,10 +14,14 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 </head>
 <body>
+
 <?php require_once("enteteU.php"); ?>
 <div class="col-md-12 col-xs-12 spacer">
     <div class="panel panel-info">
         <div class="panel-heading text-center">Liste des interventions</div>
+       <!-- affichage de login de l'utulisateur qui a connecte
+         <//?php echo "le login de la personne connecte est "; 
+				   echo $_SESSION['user'];?>  -->
         <div class="panel-body">
             <table class="table">
                 <thead>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -30,10 +31,14 @@ class ModelePersonnel
                     while ($donnees = $st->fetch()) {
                         $type = $donnees['P_GRADE'];
                         if ($type == "SAP2") {
+                             //recuprer le Login de celui qui a connecte 
+                             $_SESSION["user"]=$donnees['P_CODE'];
                             header("Location: ../vue/saisieIntervention.php");
                         }
                        else 
                        {
+                             //recuprer le Login de celui qui a connecte 
+                           $_SESSION["user"]=$donnees['P_CODE'];
                             echo "bienvenu $type";
                             header("Location: ../vue/interventions.php");
                         }
