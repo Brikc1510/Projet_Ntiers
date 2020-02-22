@@ -10,7 +10,7 @@ class GestionVehicule
         $this->con =$c->connect();
     }
 
-    function ajouterVehicule($i)
+    function ajouterVehicule($i,$idI)
     {
         try{
 			
@@ -18,6 +18,7 @@ class GestionVehicule
         $query = 'INSERT INTO vehicules
         SET
         V_ID= :V_ID,
+        ID= :ID,
         TV_CODE= :TV_CODE,
         dateDepart= :dateDepart,
         heureDepart= :heureDepart,
@@ -35,6 +36,7 @@ class GestionVehicule
 
        
         $exe->bindParam(':V_ID', $i->id);
+        $exe->bindParam(':ID', $idI);
         $exe->bindParam(':TV_CODE', $i->typeV);
         $exe->bindParam(':dateDepart', $i->dateD);
         $exe->bindParam(':heureDepart', $hD);

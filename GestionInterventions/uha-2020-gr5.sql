@@ -91,6 +91,7 @@ CREATE TABLE IF NOT EXISTS `resetpassword` (
 DROP TABLE IF EXISTS `vehicules`;
 CREATE TABLE IF NOT EXISTS `vehicules` (
   `V_ID` int(10) NOT NULL,
+`ID` int(10) NOT NULL,
   `TV_CODE` varchar(10) NOT NULL,
   `dateDepart` date NOT NULL,
   `heureDepart` time NOT NULL,

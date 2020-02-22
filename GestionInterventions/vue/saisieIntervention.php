@@ -13,8 +13,44 @@
     <link rel="stylesheet" type="text/css" href="../css/myStyle.css">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="../js/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet">
+<script src="../js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
+        
 </head>
 <body>
+
+<script>
+$(function() {
+   
+     $("#name").on('input', function() {
+        $("#name").autocomplete({ 
+                source: "../controlleur/search.php",
+                select: function( event, ui ) {
+                event.preventDefault();
+                $("#name").val(ui.item.id);
+                }   
+            });
+        });
+
+        $('#name').autocomplete({
+          source: function (request, response) {
+            $.ajax({
+              type: "GET",
+              url: "../controlleur/search.php",
+              data: {
+                term: request.term,
+              },
+              success: response,
+              dataType: 'json',
+            
+            });
+          }
+        });
+});
+
+    </script>
 <script>
 
  $(document).ready(function() { 

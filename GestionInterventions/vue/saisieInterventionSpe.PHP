@@ -1,6 +1,36 @@
 
 <link rel="stylesheet" type="text/css" href="../css/myStyle.css">
+<link rel="stylesheet" type="text/css" href="../css/monCSS.css">
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+<link href="../js/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet">
+<script src="../js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+
+        
+<script>
+/* $(function() {
+   
+     $("#name").on('input', function() {
+        $("#name").autocomplete({ 
+                source: "../controlleur/search.php",
+                select: function( event, ui ) {
+                event.preventDefault();
+                $("#name").val(ui.item.P_NOM);
+                }   
+            });
+        });
+
+});
+ */
+
+
+            $(document).ready(function(){
+			$('.my-form-control').autocomplete({
+				source: '../controlleur/search.php'
+			});
+		});
+       
+    
+    </script>
 <?php 
         include_once "../Api/dataBase.php";
         include_once "../Api/ModeleVehicule.php";
@@ -53,7 +83,7 @@
                         ?>
                             <label class="control-label"><?php echo $r['ROLE_NAME']?>:</label>
                             
-                            <input type="text" name="<?php echo $i ?>" placeholder="NOM PRENOM" class="form-control">
+                            <input type="text" name="<?php echo $i ?>" placeholder="NOM PRENOM" class="my-form-control">
                         <?php 
                             $i = $i+1;
                             }

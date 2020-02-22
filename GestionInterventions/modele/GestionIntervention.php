@@ -10,14 +10,14 @@ class GestionIntervention
         $this->con =$c->connect();
     }
 
-    function ajouterIntervention($i,$d)
+    function ajouterIntervention($i)
     {
         try{
 			
 		
         $query = 'INSERT INTO interventions
         SET
-        
+        id= :id,
         commune= :commune,
         adresse= :adresse,
         typeI= :typeI,
@@ -28,7 +28,6 @@ class GestionIntervention
         heureFin= :heureFin,
         opm= :opm,
         important= :important,
-        V_ID= :V_ID,
         dateDepart= :dateDepart,
         heureDepart= :heureDepart,
         dateArrivee= :dateArrivee,
@@ -42,7 +41,7 @@ class GestionIntervention
         $hD =$i->heureD.':00';
      
         $hF =$i->heureF.':00';
-        //$exe->bindParam(':id', $i->id);
+        $exe->bindParam(':id', $i->id);
         $exe->bindParam(':commune', $i->commune);
         $exe->bindParam(':adresse', $i->adresse);
         $exe->bindParam(':typeI', $i->typeI);
@@ -53,7 +52,6 @@ class GestionIntervention
         $exe->bindParam(':heureFin', $hF);
         $exe->bindParam(':opm', $i->opm);
         $exe->bindParam(':important', $i->impor);
-        $exe->bindParam(':V_ID',  $d);
         $exe->bindParam(':dateDepart', $i->dateD);
         $exe->bindParam(':heureDepart', $hD);
         $exe->bindParam(':dateArrivee', $i->dateD);
@@ -65,6 +63,7 @@ class GestionIntervention
         if($exe->execute())
         {
             echo 'done';
+
         }
         else
         {

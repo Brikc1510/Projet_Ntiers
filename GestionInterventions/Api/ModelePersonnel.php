@@ -165,19 +165,21 @@ class ModelePersonnel
         return $Liste;
     }      
 
-    function get_names() {
+    function get_names($i) {
        
-        $exe = $this->con->prepare('SELECT * FROM pompier');
+        $search = "%".$i."%";
+        $exe = $this->con->prepare('SELECT * FROM pompier Where P_NOM LIKE \''.$search.'\'');
         $exe->execute();
         $Liste = array(); 
         
         while($result = $exe->fetch(PDO::FETCH_OBJ)) {
            
-            $row=array("P_PRENOM" => $result->P_PRENOM ,"P_NOM" => $result->P_NOM);
-            array_push($Liste,$row);
+            //$row=array("P_NOM" => $result->P_NOM,"P_PRENOM" => $result->P_PRENOM );
+            array_push($Liste,$result->P_NOM);
             
         }
-    
+       
+       
         return $Liste;
     }      
 

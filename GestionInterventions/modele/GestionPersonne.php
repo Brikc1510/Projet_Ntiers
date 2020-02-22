@@ -1,6 +1,6 @@
 <?php
 include_once 'ConnexionDB.php';
-class GestionVehicule
+class GestionPersonne
 {
     public $con;
 
@@ -20,7 +20,7 @@ class GestionVehicule
         SET
         P_CODE= :P_CODE,
         nom= :nom,
-        prenom =prenom,
+        prenom =:prenom,
         V_ID= :V_ID
         ';
 
@@ -32,7 +32,7 @@ class GestionVehicule
         $exe->bindParam(':prenom', $i->prenom);
         $exe->bindParam(':V_ID', $i->v);
         
-        
+        var_dump($exe);
 
         if($exe->execute())
         {
