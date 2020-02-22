@@ -4,13 +4,13 @@ class InterventionModel {
     public function construct(){}
 
     public function listAll(){
-        $sql='SELECT i.id, p.P_CODE, p.nom, p.prenom, i.commune, i.adresse, i.typeI, i.requerant, i.dateDebut, i.heureDebut, i.dateFin, i.heureFin, i.opm,
-              i.important, i.responsable, v.TV_CODE, v.dateDepart, v.heureDepart,v.dateArrivee, v.heureArrivee, v.dateRetour, v.heureRetour
-              FROM personne p
-              INNER JOIN voyager vo ON p.P_CODE=vo.P_CODE
-              INNER JOIN vehicules v ON vo.V_ID=v.V_ID
-              INNER JOIN participer pa ON v.V_ID=pa.v_ID
-			  INNER JOIN interventions i ON pa.id=i.id';
+        $sql='SELECT p.nom, p.prenom, i.commune, i.adresse, i.typeI, i.requerant, i.dateDebut, i.heureDebut, i.dateFin, i.heureFin, i.opm,
+        i.important, i.responsable, v.TV_CODE, i.dateDepart, i.heureDepart,i.dateArrivee, i.heureArrivee, i.dateRetour, i.heureRetour
+        FROM personne p
+        INNER JOIN voyager vo ON p.P_CODE=vo.P_CODE
+        INNER JOIN vehicules v ON vo.TV_CODE=v.TV_CODE
+        INNER JOIN participer pa ON v.TV_CODE=pa.TV_CODE
+        INNER JOIN interventions i ON pa.id=i.id';
         try {
             $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '');
             $stmt=$dbh->prepare($sql);
@@ -25,14 +25,14 @@ class InterventionModel {
 
 
     public function listOne($id){
-        $sql='SELECT i.id, p.P_CODE, p.nom, p.prenom, i.commune, i.adresse, i.typeI, i.requerant, i.dateDebut, i.heureDebut, i.dateFin, i.heureFin, i.opm,
-              i.important, i.responsable, v.TV_CODE, v.dateDepart, v.heureDepart,v.dateArrivee, v.heureArrivee, v.dateRetour, v.heureRetour
-              FROM personne p
-              INNER JOIN voyager vo ON p.P_CODE=vo.P_CODE
-              INNER JOIN vehicules v ON vo.V_ID=v.V_ID
-              INNER JOIN participer pa ON v.V_ID=pa.v_ID
-			  INNER JOIN interventions i ON pa.id=i.id
-              WHERE i.id=:id';
+        $sql='SELECT p.nom, p.prenom, i.commune, i.adresse, i.typeI, i.requerant, i.dateDebut, i.heureDebut, i.dateFin, i.heureFin, i.opm,
+        i.important, i.responsable, v.TV_CODE, i.dateDepart, i.heureDepart,i.dateArrivee, i.heureArrivee, i.dateRetour, i.heureRetour
+        FROM personne p
+        INNER JOIN voyager vo ON p.P_CODE=vo.P_CODE
+        INNER JOIN vehicules v ON vo.TV_CODE=v.TV_CODE
+        INNER JOIN participer pa ON v.TV_CODE=pa.TV_CODE
+        INNER JOIN interventions i ON pa.id=i.id   
+        WHERE i.id=:id';
         try {
             $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '');
             $stmt=$dbh->prepare($sql);
