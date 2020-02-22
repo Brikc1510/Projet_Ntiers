@@ -1,7 +1,7 @@
 <?php
 define("USER", "root");
 define("PASSWORD", "1234");
-define("DNS", 'mysql:host=localhost;dbname=ebrigade1');
+define("DNS", 'mysql:host=localhost;dbname=ebrigade1;charset=utf8');
 
 class DataBase{
 	public $pdo;

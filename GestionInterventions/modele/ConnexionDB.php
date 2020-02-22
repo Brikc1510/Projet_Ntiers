@@ -1,7 +1,7 @@
 <?php
 define("USER1", "root");
 define("PASSWORD1", "1234");
-define("DNS1", 'mysql:host=localhost;dbname=uha-2020-gr5');
+define("DNS1", 'mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8');
 
 class ConnexionDB{
 	public $pdo;

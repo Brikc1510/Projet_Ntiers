@@ -12,7 +12,7 @@ class InterventionModel {
         INNER JOIN participer pa ON v.TV_CODE=pa.TV_CODE
         INNER JOIN interventions i ON pa.id=i.id';
         try {
-            $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '');
+            $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '1234');
             $stmt=$dbh->prepare($sql);
             $res=($stmt->execute())?$stmt->fetchAll(PDO::FETCH_OBJ): null;
             $dbh = null;
@@ -34,7 +34,7 @@ class InterventionModel {
         INNER JOIN interventions i ON pa.id=i.id   
         WHERE i.id=:id';
         try {
-            $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '');
+            $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '1234');
             $stmt=$dbh->prepare($sql);
             $stmt->bindParam(":id",$id);
             $res=($stmt->execute())?$stmt->fetchAll(PDO::FETCH_OBJ): null;
