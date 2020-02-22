@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 02, 2020 at 09:52 PM
--- Server version: 8.0.18
+-- Generation Time: Feb 22, 2020 at 12:38 AM
+-- Server version: 5.7.23-log
 -- PHP Version: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `interventions`;
 CREATE TABLE IF NOT EXISTS `interventions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `commune` varchar(50) NOT NULL,
   `adresse` varchar(100) NOT NULL,
   `typeI` varchar(50) NOT NULL,
@@ -41,7 +41,6 @@ CREATE TABLE IF NOT EXISTS `interventions` (
   `heureFin` time NOT NULL,
   `opm` tinyint(1) NOT NULL,
   `important` tinyint(1) NOT NULL,
-  `V_ID` int(11) NOT NULL,
   `dateDepart` date NOT NULL,
   `heureDepart` time NOT NULL,
   `dateArrivee` date NOT NULL,
@@ -49,9 +48,16 @@ CREATE TABLE IF NOT EXISTS `interventions` (
   `dateRetour` date NOT NULL,
   `heureRetour` time NOT NULL,
   `responsable` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `V_ID` (`V_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `interventions`
+--
+
+INSERT INTO `interventions` (`id`, `commune`, `adresse`, `typeI`, `requerant`, `dateDebut`, `heureDebut`, `dateFin`, `heureFin`, `opm`, `important`, `dateDepart`, `heureDepart`, `dateArrivee`, `heureArrivee`, `dateRetour`, `heureRetour`, `responsable`) VALUES
+(12, 'sf', 'dqds', 'ASSB', 'Alerte locale', '2020-02-12', '15:15:00', '2020-02-21', '12:12:00', 0, 0, '2020-02-12', '15:15:00', '2020-02-12', '15:15:00', '2020-02-12', '15:15:00', 'ahmed'),
+(36, 'sf', 'dqds', 'ASSB', 'Alerte locale', '2020-02-12', '15:15:00', '2020-02-21', '12:12:00', 0, 0, '2020-02-12', '15:15:00', '2020-02-12', '15:15:00', '2020-02-12', '15:15:00', 'ahmed');
 
 -- --------------------------------------------------------
 
@@ -91,15 +97,33 @@ CREATE TABLE IF NOT EXISTS `resetpassword` (
 DROP TABLE IF EXISTS `vehicules`;
 CREATE TABLE IF NOT EXISTS `vehicules` (
   `V_ID` int(10) NOT NULL,
-`ID` int(10) NOT NULL,
+  `ID` int(10) NOT NULL,
   `TV_CODE` varchar(10) NOT NULL,
   `dateDepart` date NOT NULL,
   `heureDepart` time NOT NULL,
   `dateArrivee` date NOT NULL,
   `heureArrivee` time NOT NULL,
   `dateRetour` date NOT NULL,
-  `heureRetour` time NOT NULL
+  `heureRetour` time NOT NULL,
+  PRIMARY KEY (`V_ID`,`ID`),
+  KEY `ID` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `personne`
+--
+ALTER TABLE `personne`
+  ADD CONSTRAINT `personne_ibfk_1` FOREIGN KEY (`V_ID`) REFERENCES `vehicules` (`V_ID`);
+
+--
+-- Constraints for table `vehicules`
+--
+ALTER TABLE `vehicules`
+  ADD CONSTRAINT `vehicules_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `interventions` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
