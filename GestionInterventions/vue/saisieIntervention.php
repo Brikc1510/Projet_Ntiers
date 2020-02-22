@@ -4,7 +4,10 @@
  {
      header('location:index.php');
  }
-
+ $i = 0;
+$_SESSION['i'] = $i;
+ 
+echo $_SESSION['i'];
 ?>
 <html>
 <head>
@@ -21,47 +24,19 @@
 </head>
 <body>
 
+
 <script>
-$(function() {
-   
-     $("#name").on('input', function() {
-        $("#name").autocomplete({ 
-                source: "../controlleur/search.php",
-                select: function( event, ui ) {
-                event.preventDefault();
-                $("#name").val(ui.item.id);
-                }   
-            });
-        });
-
-        $('#name').autocomplete({
-          source: function (request, response) {
-            $.ajax({
-              type: "GET",
-              url: "../controlleur/search.php",
-              data: {
-                term: request.term,
-              },
-              success: response,
-              dataType: 'json',
-            
-            });
-          }
-        });
-});
-
-    </script>
-<script>
-
+let i =0;
  $(document).ready(function() { 
 		// au changement du select :
-		$('#b').on( 'change', '#TV_CODE', function() { 
+		$('#b').on( 'change', '#TV_CODE'+i, function() { 
 			var val = $(this).val(); 
+            console.log(i);
 			$.ajax({
                 
 				type		: 'POST',				// on envoie en post
 				url		: 'saisieInterventionSpe.php',			// fichier de traitement PHP => Attention a bien vérifier le chemin (rrelatif, ou absolu) !
-				data		: 'TV_CODE='+val,	// on transmet la donnée, qui sera récupérée par $_POST['TV_CODE']
+				data		:'TV_CODE='+val+'&i='+i ,	// on transmet la donnée, qui sera récupérée par $_POST['TV_CODE']
 				
                 success	: function(t) {
 					
@@ -71,11 +46,39 @@ $(function() {
 			});
 		});
 	})
+    $(document).ready(function() { 
+		// au changement du select :
+		$('#ajouter').on( 'click', function() { 
+			var val = $(this).val(); 
+			$.ajax({
+                
+				type		: 'POST',				// on envoie en post
+				url		: 'ajoutVehicule.php',			// fichier de traitement PHP => Attention a bien vérifier le chemin (rrelatif, ou absolu) !
+					// on transmet la donnée, qui sera récupérée par $_POST['TV_CODE']
+				
+                success	: function(t) {
+					
+					$('#b').append(t);// on affiche le résultat renvoyé par le fichier PHP dans le <div>  
+                    
+                    console.log(i);
+                    
+                    
+                }
+			});
+		});
+	})
+    function a()
+    {
+        i++;
+        console.log('#TV_CODE'+i);
+    }
+    
 </script>
 <?php require_once("entete.php"); 
         include_once "../Api/dataBase.php";
         include_once "../Api/ModeleVehicule.php";
         include_once "../Api/ModeleIntervention.php";
+        
 ?>
 <div class="col-md-6 col-xs-12 col-md-offset-3 spacer" >
     <div class="panel panel-info">
@@ -157,7 +160,7 @@ $(function() {
 
                 <div class="form-group" id="b" >
                     <label  class="control-label">Nom de l'engin</label>
-                    <select type="text" name="TV_CODE" id="TV_CODE" class="form-control"  >
+                    <select type="text" <?php echo 'name='."TV_CODE".$_SESSION['i'] ?> <?php echo 'id='."TV_CODE$i" ?> class="form-control"  >
                     <?php
                     
                         $data = new DataBase();
@@ -177,6 +180,9 @@ $(function() {
                         
                         ?>
                 </div>
+               
+
+                <button type="button" class="btn btn-primary" id="ajouter" onClick=a()>Ajouter un autre véhicule</button>
                 
 
 
@@ -222,5 +228,8 @@ $(function() {
     </div>
 </div>
 </body>
-
+<script>
+    
+                            
+    </script>
 </html>

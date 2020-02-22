@@ -31,8 +31,7 @@ else
     $imp='0';
 }
 
-$mat =$_POST['V_IMMATRICULATION'];
-$result = $v->get_id_vehicule($mat);
+
 $intervention = new Intervention($_POST['id'],$_POST['commune'],$_POST['adresse'],$_POST['type']
                                 ,$_POST['requerant'],$_POST['dateDebut']
                                 ,$_POST['dateFin'],$_POST['heureDebut'],
@@ -40,33 +39,48 @@ $intervention = new Intervention($_POST['id'],$_POST['commune'],$_POST['adresse'
 
 $gestionInter = new GestionIntervention();
 $gestionInter->ajouterIntervention($intervention); 
-
-
-$vehicule = new Vehicule($result['V_ID'],$_POST['TV_CODE']
-                    ,$_POST['dateDepart'],$_POST['dateArrivee'],
-                    $_POST['dateRetour'],$_POST['heureDepart'],
-                    $_POST['heureArrivee'],$_POST['heureRetour']);
-
-$gestionVehi = new GestionVehicule();
-$gestionVehi->ajouterVehicule($vehicule,$_POST['id']);  
-
-$resul =$v->get_type_vehicule_role($_POST['TV_CODE']);
-$count = sizeof($resul);
-echo $count;
-$gestionPer = new GestionPersonne();
-for($i = 0; $i < $count;$i++)
+$b = true;
+$k = 0;
+while($b)
 {
-    $nom =$_POST[$i];
-    $nom_prenom= explode(" ",$nom);
     
-    $id=$p->get_p_code($nom_prenom[0],$nom_prenom[1]);
-  
-    $personne = new Personne($id['P_CODE'],$nom_prenom[0],$nom_prenom[1],$result['V_ID']);
-  
-    $gestionPer->ajouterPersonne($personne);
 
+    if(isset($_POST['TV_CODE'.$k]))
+    {
+        $mat =$_POST['V_IMMATRICULATION'.$k];
+        $result = $v->get_id_vehicule($mat);
+        $vehicule = new Vehicule($result['V_ID'],$_POST['TV_CODE'.$k]
+                            ,$_POST['dateDepart'],$_POST['dateArrivee'],
+                            $_POST['dateRetour'],$_POST['heureDepart'],
+                            $_POST['heureArrivee'],$_POST['heureRetour']);
+
+        $gestionVehi = new GestionVehicule();
+        $gestionVehi->ajouterVehicule($vehicule,$_POST['id']);  
+
+        $resul =$v->get_type_vehicule_role($_POST['TV_CODE'.$k]);
+        echo $k;
+        $count = sizeof($resul);
+        $gestionPer = new GestionPersonne();
+        for($i = 0; $i < $count;$i++)
+        {
+            $nom =$_POST[$k.$i];
+            $nom_prenom= explode(" ",$nom);
+            
+            $id=$p->get_p_code($nom_prenom[0],$nom_prenom[1]);
+        
+            $personne = new Personne($id['P_CODE'],$nom_prenom[0],$nom_prenom[1],$result['V_ID']);
+        
+            $gestionPer->ajouterPersonne($personne);
+
+        }
+
+    }else
+    {
+        $b=false;
+    }
+    $k++;
+    echo $k;
 }
-
 
 
 

@@ -7,21 +7,6 @@
 
         
 <script>
-/* $(function() {
-   
-     $("#name").on('input', function() {
-        $("#name").autocomplete({ 
-                source: "../controlleur/search.php",
-                select: function( event, ui ) {
-                event.preventDefault();
-                $("#name").val(ui.item.P_NOM);
-                }   
-            });
-        });
-
-});
- */
-
 
             $(document).ready(function(){
 			$('.my-form-control').autocomplete({
@@ -29,15 +14,16 @@
 			});
 		});
        
-    
+        
     </script>
 <?php 
         include_once "../Api/dataBase.php";
         include_once "../Api/ModeleVehicule.php";
+        session_start();
 ?>
-                <div class="form-group" id="b" >
+                <div class="form-group" >
                     <label  class="control-label">Nom de l'engin</label>
-                    <select type="text" name="TV_CODE" id="TV_CODE" class="form-control" >
+                    <select type="text" <?php echo 'name='."TV_CODE".$_SESSION['i'] ?> <?php echo 'id='."TV_CODE".$_SESSION['i'] ?> class="form-control" >
                     <?php
                     
                         $data = new DataBase();
@@ -55,7 +41,7 @@
                         echo '</select>';
                     ?>    
                     <label  class="control-label">Matricule de l'engin</label>            
-                    <select type="text" name="V_IMMATRICULATION"  class="form-control" >
+                    <select type="text" <?php echo 'name='."V_IMMATRICULATION".$_SESSION['i'] ?> class="form-control" >
                     <?php
 
                         $data = new DataBase();
@@ -78,17 +64,21 @@
                     ?>     
                         <div class=form-group id="  <?php echo $var ?>" >
                         <?php    
-                            $i =0;
+                            $j =0;
                             foreach ($resultat as $r) {
                         ?>
                             <label class="control-label"><?php echo $r['ROLE_NAME']?>:</label>
                             
-                            <input type="text" name="<?php echo $i ?>" placeholder="NOM PRENOM" class="my-form-control">
+                            <input type="text" name="<?php echo $_SESSION['i'].$j?>" placeholder="NOM PRENOM" class="my-form-control">
                         <?php 
-                            $i = $i+1;
+                            $j = $j+1;
                             }
                         ?>
                  
                         </div>
+                        
+                       <?php  
+                       $_SESSION['i']++;
+                       ?>
                     
                 </div>
