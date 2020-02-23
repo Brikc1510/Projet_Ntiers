@@ -12,9 +12,13 @@ define('VIEWS', ROOT.DS.'views');
 define('MODELS', ROOT.DS.'models');
 define('VENDORS', ROOT.DS.'vendors');
 define('CLASSES', ROOT.DS.'classes');
+define('API', ROOT.DS.'api');
 
 // =====================  Détermination du controleur à utiliser: Est-ce que j'ai un paramètre 'c' dans mon URL?
-if (isset($_GET['c'])){
+
+
+
+if (isset($_GET['c']) && isset($_SESSION['name'])){
 	//Il y a un paramètre de précisé: c'est le nom du controleur demandé.
 	$controller=strtolower(trim($_GET['c']));
 }else{
@@ -23,21 +27,26 @@ if (isset($_GET['c'])){
 }
 
 // =====================  Détermination de la méthode à appeler: Est-ce que j'ai un paramètre 'm' dans mon URL?
-if (isset($_GET['m'])){
+if (isset($_GET['m']) && isset($_SESSION['name'])){
 		//Il y a un paramètre de précisé: c'est le nom de la méthode demandée.
   $method=strtolower(trim($_GET['m']));
 }else{
 	//Pas de paramètre => la méthode par défaut est la méthode INDEX
 	$method='index';
 }
-
-// =====================  Détermination de la id à utiliser: Est-ce que j'ai un paramètre 'id' dans mon URL?
 if (isset($_GET['id'])){
-  //Il y a un paramètre de précisé: c'est l'identifiant
-$id=strtolower(trim($_GET['id']));
+	//Il y a un paramètre de précisé: c'est l'identifiant
+  $id=strtolower(trim($_GET['id']));
 }else{
-//Pas de paramètre => la méthode par défaut est la méthode INDEX
-$id=null;
+  //Pas de paramètre => la méthode par défaut est la méthode INDEX
+  $id=null;
+}
+
+if(!isset($_SESSION['name']) && isset($_GET['c']) && isset($_GET['m']))
+{
+
+	$controller=strtolower(trim($_GET['c']));
+	$method=strtolower(trim($_GET['m']));
 }
 
 // =====================  Appel

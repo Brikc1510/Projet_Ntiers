@@ -6,14 +6,108 @@ class InterventionController {
     public function index() {
         $this->liste();
     }
+    public function add()
+    {
+        include_once MODELS.DS.'interventionM.php';
+        include_once MODELS.DS.'personneM.php';
+        include_once MODELS.DS.'vehiculeM.php';
+        include_once MODELS.DS.'Intervention.php';
+        include_once MODELS.DS.'Vehicule.php';
+        include_once MODELS.DS.'Personne.php';
+        include_once API.DS."ModeleVehicule.php";
+        include_once API.DS."ModelePersonnel.php";
+        include_once API.DS."dataBase.php";
+        require_once CLASSES.DS.'view.php';
+
+        $data = new DataBase();
+        $con = $data->connect();
+        $v = new ModeleVehicule($con);
+        $p = new ModelePersonnel($con);
+        if(!empty($_POST['opm']))
+        {
+            $opm = '1'; 
+        }
+        else
+        {
+            $opm='0';
+        }
+
+        if(!empty($_POST['important']))
+        {
+            $imp = '1'; 
+        }
+        else
+        {
+            $imp='0';
+        }
+
+
+        $intervention = new Intervention($_POST['id'],$_POST['commune'],$_POST['adresse'],$_POST['type']
+                                        ,$_POST['requerant'],$_POST['dateDebut']
+                                        ,$_POST['dateFin'],$_POST['heureDebut'],
+                                        $_POST['heureFin'],$opm,$imp, $_POST['reponsable']);
+
+        $gestionInter = new InterventionModel();
+        $gestionInter->ajouterIntervention($intervention); 
+        $b = true;
+        $k = 0;
+        while($b)
+        {
+            
+
+            if(isset($_POST['TV_CODE'.$k]))
+            {
+                $mat =$_POST['V_IMMATRICULATION'.$k];
+                $result = $v->get_id_vehicule($mat);
+                $vehicule = new Vehicule($result['V_ID'],$_POST['TV_CODE'.$k]
+                                    ,$_POST['dateDepart'],$_POST['dateArrivee'],
+                                    $_POST['dateRetour'],$_POST['heureDepart'],
+                                    $_POST['heureArrivee'],$_POST['heureRetour']);
+
+                $gestionVehi = new VehiculeModel();
+                $gestionVehi->ajouterVehicule($vehicule,$_POST['id']);  
+
+                $resul =$v->get_type_vehicule_role($_POST['TV_CODE'.$k]);
+                
+                $count = sizeof($resul);
+                $gestionPer = new PersonneModel();
+                for($i = 0; $i < $count;$i++)
+                {
+                    $nom =$_POST[$k.$i];
+                    $nom_prenom= explode(" ",$nom);
+                    
+                    $id=$p->get_p_code($nom_prenom[0],$nom_prenom[1]);
+                
+                    $personne = new Personne($id['P_CODE'],$nom_prenom[0],$nom_prenom[1],$result['V_ID']);
+                
+                    $gestionPer->ajouterPersonne($personne);
+
+                }
+
+            }else
+            {
+                $b=false;
+            }
+            $k++;
+            
+        }
+        $v=new View();
+        $mm = "Intervention ajouté avec succés";
+                echo "<script type='text/javascript'>alert('$mm');</script>";
+              
+        $v->render('saisieIntervention','view');     
+}
     public function liste(){
       require_once MODELS.DS.'interventionM.php';
       $m=new InterventionModel();
       $interventions=$m->listAll();
+      var_dump($interventions);
       //var_dump($interventions);
       // Affichage au sein de la vue des données récupérées via le model
       require_once CLASSES.DS.'view.php';
       $v=new View();
+      $v->change("entete.php");
+      $v->changeb(false);
       $v->setVar('interventionlist',$interventions);
       $v->render('intervention','list');
     }
@@ -38,6 +132,36 @@ class InterventionController {
         $v->render('intervention','form');
 
     }
+    public function saisi(){
+      require_once CLASSES.DS.'view.php';
+      $v=new View();
+      $v->changec(false);
+      $v->render('saisieInterventionSpe','view');
+  }
+
+  public function ajouterV(){
+      require_once CLASSES.DS.'view.php';
+      $v=new View();
+      $v->changec(false);
+      $v->render('ajouterVehicule','view');
+  }
+  public function chercher(){
+    $con = new PDO("mysql:host=localhost;dbname=ebrigade1", 'root', '1234');
+    $searchTerm = $_GET['term']; 
+    $search = "%".$searchTerm."%";
+    $exe = $con->prepare('SELECT * FROM pompier Where P_NOM LIKE \''.$search.'\'');
+        $exe->execute();
+        $Liste = array(); 
+        
+        while($result = $exe->fetch(PDO::FETCH_OBJ)) {
+           
+            //$row=array("P_NOM" => $result->P_NOM,"P_PRENOM" => $result->P_PRENOM );
+            array_push($Liste,$result->P_NOM." ".$result->P_PRENOM);
+            
+        }
+        echo json_encode($Liste);
+       
+  }
 
 
 }

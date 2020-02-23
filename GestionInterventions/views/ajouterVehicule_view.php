@@ -1,9 +1,9 @@
 
-<link rel="stylesheet" type="text/css" href="../css/myStyle.css">
-<link rel="stylesheet" type="text/css" href="../css/monCSS.css">
-<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-<link href="../js/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet">
-<script src="../js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="vendors/css/myStyle.css">
+<link rel="stylesheet" type="text/css" href="vendors/css/monCSS.css">
+<link rel="stylesheet" type="text/css" href="vendors/css/bootstrap.min.css">
+<link href="vendors/js/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet">
+<script src="vendors/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 
         
 <script>
@@ -14,7 +14,7 @@
 			$.ajax({
                 
 				type		: 'POST',				// on envoie en post
-				url		: 'saisieInterventionSpe.php',			// fichier de traitement PHP => Attention a bien vérifier le chemin (rrelatif, ou absolu) !
+				url		: 'index.php?c=intervention&m=saisi',			// fichier de traitement PHP => Attention a bien vérifier le chemin (rrelatif, ou absolu) !
 				data		: 'TV_CODE='+val,	// on transmet la donnée, qui sera récupérée par $_POST['TV_CODE']
 				
                 success	: function(t) {
@@ -27,8 +27,8 @@
         
     </script>
 <?php 
-        include_once "../Api/dataBase.php";
-        include_once "../Api/ModeleVehicule.php";
+       require_once API.DS.'dataBase.php';
+       require_once API.DS.'ModeleVehicule.php';
         session_start();
 ?>
                 
