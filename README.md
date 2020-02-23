@@ -9,7 +9,7 @@ Pour ce Premier liverable on s'y passer sur les fonctionalités suivante:
 
 
 Les fonctionnalité ajouté pour ce deuxième livrable sont
-1- Ajoute d'une intervention avec plusieurs véhicule.
+1- Ajoute d'une intervention avec plusieurs véhicules.
 2- Déconnexion.
 
 On a du refaire la base de données pour pouvoir ajouter plusieurs véhicule à la meme intervention.
