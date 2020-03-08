@@ -61,6 +61,22 @@ class ModelePersonnel
         }
     
         return $Liste;
+    }  
+    
+    function get_name($code) {
+       
+        $exe = $this->con->prepare('SELECT * FROM pompier WHERE P_CODE =?');
+        $exe->bindParam(1, $code);
+        $exe->execute();
+        $Liste = array(); 
+        
+        while($result = $exe->fetch(PDO::FETCH_OBJ)) {
+            
+            array_push($Liste,$result->P_NOM." ".$result->P_PRENOM);
+    
+        }
+    
+        return $Liste;
     }      
 
     function get_names($i) {

@@ -69,12 +69,28 @@
                         <div class=form-group id="  <?php echo $var ?>" >
                         <?php    
                             $j =0;
-                            foreach ($resultat as $r) {
+                           
+                            $r = $resultat[0];
+                            $nom = $_SESSION['nomPrenom'];
+                            
+                            
+                        ?>
+                            <label class="control-label"><?php echo $r['ROLE_NAME']?>:</label>
+                            
+                            <input type="text" name="<?php echo $_SESSION['i'].$j?>" value="<?php echo $nom[0] ?>" class="my-form-control">
+                        <?php
+                           
+                            $b= false;
+                            foreach($resultat as $r) {
+                                if($b)
+                                {
                         ?>
                             <label class="control-label"><?php echo $r['ROLE_NAME']?>:</label>
                             
                             <input type="text" name="<?php echo $_SESSION['i'].$j?>" placeholder="NOM PRENOM" class="my-form-control">
                         <?php 
+                                }
+                                $b=true;
                             $j = $j+1;
                             }
                         ?>

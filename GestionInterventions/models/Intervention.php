@@ -13,7 +13,8 @@ class Intervention
     public $opm;
     public $impor;
     public $resp;
-    function __construct($id,$commune,$adresse,$typeI,$requerant,$dateD,$dateF,$heureD,$heureF,$opm,$impor,$resp)
+    public $idChef;
+    function __construct($id,$commune,$adresse,$typeI,$requerant,$dateD,$dateF,$heureD,$heureF,$opm,$impor,$resp,$idChef)
     {
         $this->id=$id;
         $this->commune=$commune;
@@ -27,6 +28,7 @@ class Intervention
         $this->opm=$opm;
         $this->impor=$impor;
         $this->resp=$resp;
+        $this->idChef=$idChef;
     }
 
 

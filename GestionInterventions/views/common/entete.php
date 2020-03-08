@@ -5,7 +5,7 @@
     </div>
     <ul class="nav navbar-nav">
    
-        <li><a href="index.php?c=intervention&m=add">Saisi Interventions</a></li>
+        <li><a href="index.php?c=intervention&m=afficher">Saisi Interventions</a></li>
     </ul>
     <ul class="nav navbar-nav">
    
@@ -16,16 +16,5 @@
     </ul>
   </div>
 </nav> 
-<!-- 
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <ul class="nav navbar-nav"><li>
-    
-        <li><a href="saisieVehicule.php">Saisie vehicule</a></li>
-        <li><a href="">Interventions</a></li>
-        <ul class="nav navbar-nav navbar-right">
-
-    </ul>
-    </ul>
-</div> -->
 
 

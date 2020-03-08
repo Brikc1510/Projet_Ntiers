@@ -5,16 +5,18 @@ class InterventionModel {
     public function construct(){}
 
     public function listAll(){
-        $sql='SELECT p.nom, p.prenom, i.commune, i.adresse, i.typeI, i.requerant, i.dateDebut, i.heureDebut, i.dateFin, i.heureFin, i.opm,
-        i.important, i.responsable, v.TV_CODE, i.dateDepart, i.heureDepart,i.dateArrivee, i.heureArrivee, i.dateRetour, i.heureRetour
-        FROM personne p
-        INNER JOIN voyager vo ON p.P_CODE=vo.P_CODE
-        INNER JOIN vehicules v ON vo.TV_CODE=v.TV_CODE
-        INNER JOIN participer pa ON v.TV_CODE=pa.TV_CODE
-        INNER JOIN interventions i ON pa.id=i.id';
+        session_start();
+        $sql='SELECT DISTINCT i.id,i.commune, i.adresse, i.typeI, i.requerant, i.dateDebut, i.heureDebut, i.dateFin, i.heureFin, i.opm,
+        i.important, i.responsable, v.TV_CODE
+        FROM interventions i
+        INNER JOIN personne p ON p.P_CODE=?
+        INNER JOIN vehicules v ON v.ID=i.id AND v.V_ID=p.v_ID';
+
+        
         try {
             $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '1234');
             $stmt=$dbh->prepare($sql);
+            $stmt->bindParam(1,$_SESSION["user"]);
             $res=($stmt->execute())?$stmt->fetchAll(PDO::FETCH_OBJ): null;
             $dbh = null;
             return $res;
@@ -26,13 +28,10 @@ class InterventionModel {
 
 
     public function listOne($id){
-        $sql='SELECT p.nom, p.prenom, i.commune, i.adresse, i.typeI, i.requerant, i.dateDebut, i.heureDebut, i.dateFin, i.heureFin, i.opm,
-        i.important, i.responsable, v.TV_CODE, i.dateDepart, i.heureDepart,i.dateArrivee, i.heureArrivee, i.dateRetour, i.heureRetour
-        FROM personne p
-        INNER JOIN voyager vo ON p.P_CODE=vo.P_CODE
-        INNER JOIN vehicules v ON vo.TV_CODE=v.TV_CODE
-        INNER JOIN participer pa ON v.TV_CODE=pa.TV_CODE
-        INNER JOIN interventions i ON pa.id=i.id   
+        $sql='SELECT i.commune, i.adresse, i.typeI, i.requerant, i.dateDebut, i.heureDebut, i.dateFin, i.heureFin, i.opm,
+        i.important, i.responsable, v.dateDepart, v.heureDepart,v.dateArrivee, v.heureArrivee, v.dateRetour, v.heureRetour
+        FROM interventions i
+        INNER JOIN vehicules v ON v.ID=i.id
         WHERE i.id=:id';
         try {
             $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '1234');
@@ -65,15 +64,11 @@ class InterventionModel {
         heureFin= :heureFin,
         opm= :opm,
         important= :important,
-        dateDepart= :dateDepart,
-        heureDepart= :heureDepart,
-        dateArrivee= :dateArrivee,
-        heureArrivee= :heureArrivee,
-        dateRetour= :dateRetour,
-        heureRetour= :heureRetour,
-        responsable= :responsable';
+        responsable= :responsable,
+        idChef = :idChef,
+        etat= :etat';
         
-       
+        $etat = "aValider";
         $exe = $dbh->prepare($query);
         $hD =$i->heureD.':00';
      
@@ -89,13 +84,10 @@ class InterventionModel {
         $exe->bindParam(':heureFin', $hF);
         $exe->bindParam(':opm', $i->opm);
         $exe->bindParam(':important', $i->impor);
-        $exe->bindParam(':dateDepart', $i->dateD);
-        $exe->bindParam(':heureDepart', $hD);
-        $exe->bindParam(':dateArrivee', $i->dateD);
-        $exe->bindParam(':heureArrivee', $hD);
-        $exe->bindParam(':dateRetour', $i->dateD);
-        $exe->bindParam(':heureRetour', $hD);
         $exe->bindParam(':responsable', $i->resp);
+        $exe->bindParam(':idChef',$i->idChef );
+        $exe->bindParam(':etat',$etat );
+
 
         if($exe->execute())
         {

@@ -18,6 +18,10 @@ class UserController {
         $name = $_POST['user'];
         $pass = $_POST['pass'];
         $_SESSION['name']=$name;
+        $data = new DataBase();
+        $con = $data->connect();
+        $m = new ModelePersonnel($con);
+        $_SESSION['nomPrenom'] = $m->get_name($name);
         $str=md5($pass);
      
         $object = new UsersModel();

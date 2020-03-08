@@ -5,16 +5,21 @@ function fAge($date) {
     $interval = $datetime2->diff($datetime1);
     return $interval->format('%y');
 }  ?>
+
+<html>
+<head>
+    <title>Affichage d'une Intervention</title>
+    <link rel="stylesheet" type="text/css" href="vendors/css/myStyle.css">
+    <link rel="stylesheet" type="text/css" href="vendors/css/bootstrap.min.css">
+</head>
+<body>
+
+<?php require_once VIEWS.DS.'common'.DS.'entete.php';  ?>
 <main role="main" class="container">
     <div class="starter-template">
         <h1>Affichage d'une intervention</h1>
     </div>
-    <div class="row">
-        <label class="col-md-4 control-label">Id :</label>
-        <div class="col-md-8">
-            <?php if (isset($i->id)) echo $i->id; ?>
-        </div>
-    </div>
+    
     <div class="row">
         <label class="col-md-4 control-label">Commune :</label>
         <div class="col-md-8">
@@ -65,25 +70,6 @@ function fAge($date) {
         </div>
     </div>
 
-    <div class="row">
-        <label class="col-md-4 control-label">OPM :</label>
-        <div class="col-md-8">
-            <?php if (isset($i->opm)) echo $i->opm; ?>
-        </div>
-    </div>
-
-    <div class="row">
-        <label class="col-md-4 control-label">Important :</label>
-        <div class="col-md-8">
-            <?php if (isset($i->important)) echo $i->important; ?>
-        </div>
-    </div>
-    <div class="row">
-        <label class="col-md-4 control-label">TV_CODE :</label>
-        <div class="col-md-8">
-            <?php if (isset($i->TV_CODE)) echo $i->TV_CODE; ?>
-        </div>
-    </div>
     <div class="row">
         <label class="col-md-4 control-label">Date depart :</label>
         <div class="col-md-8">

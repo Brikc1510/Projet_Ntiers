@@ -41,11 +41,14 @@ class InterventionController {
             $imp='0';
         }
 
+        $nom =$_POST["00"];
+        $nom_prenom= explode(" ",$nom);
+        $idC=$p->get_p_code($nom_prenom[0],$nom_prenom[1]);
 
         $intervention = new Intervention($_POST['id'],$_POST['commune'],$_POST['adresse'],$_POST['type']
                                         ,$_POST['requerant'],$_POST['dateDebut']
                                         ,$_POST['dateFin'],$_POST['heureDebut'],
-                                        $_POST['heureFin'],$opm,$imp, $_POST['reponsable']);
+                                        $_POST['heureFin'],$opm,$imp, $_POST['reponsable'],$idC['P_CODE']);
 
         $gestionInter = new InterventionModel();
         $gestionInter->ajouterIntervention($intervention); 
@@ -95,15 +98,18 @@ class InterventionController {
         $mm = "Intervention ajouté avec succés";
                 echo "<script type='text/javascript'>alert('$mm');</script>";
               
-        $v->render('saisieIntervention','view');     
+                $v->render('saisieIntervention','view'); 
 }
+    public function afficher()
+    {
+      require_once CLASSES.DS.'view.php';
+      $v=new View();
+      $v->render('saisieIntervention','view');
+    }
     public function liste(){
       require_once MODELS.DS.'interventionM.php';
       $m=new InterventionModel();
       $interventions=$m->listAll();
-      var_dump($interventions);
-      //var_dump($interventions);
-      // Affichage au sein de la vue des données récupérées via le model
       require_once CLASSES.DS.'view.php';
       $v=new View();
       $v->change("entete.php");
