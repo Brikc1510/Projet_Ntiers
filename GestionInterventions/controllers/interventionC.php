@@ -168,6 +168,13 @@ class InterventionController {
         echo json_encode($Liste);
        
   }
+  public function exporter()
+  {
+    require_once MODELS.DS.'interventionM.php';
+      $m=new InterventionModel();
+      $intervention=$m->exporter(); 
+      
+  }
 
 
 }
