@@ -15,6 +15,12 @@
        <!-- affichage de login de l'utulisateur qui a connecte
          <//?php echo "le login de la personne connecte est "; 
 				   echo $_SESSION['user'];?>  -->
+
+                <form method="post" action="export.php" class="text-center">  
+                     <input type="submit" name="export" value="CSV Export" class="btn btn-success" />  
+                </form> 
+
+
                    <div class="row">
         <table class="table table-sm">
             <thead>
