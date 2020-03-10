@@ -14,8 +14,7 @@
         <div class="panel-heading text-center">Liste des interventions</div>
        <!-- affichage de login de l'utulisateur qui a connecte
          <//?php echo "le login de la personne connecte est "; 
-                   echo $_SESSION['user'];?>  -->
-                   
+				   echo $_SESSION['user'];?>  -->
                    <div class="row">
         <table class="table table-sm">
             <thead>
@@ -55,10 +54,6 @@
             <?php }?>
             </tbody>
         </table>
-
-        <form method="post" action="index.php?c=intervention&m=exporter" class="text-center">  
-                     <input type="submit" name="export" value="CSV Export" class="btn btn-success" />  
-                </form> 
     </div>
     </div>
 </div>

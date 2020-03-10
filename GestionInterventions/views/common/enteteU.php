@@ -4,7 +4,7 @@
       <a class="navbar-brand" href="#">Projet NTiers</a>
     </div>
     <ul class="nav navbar-nav">
-        <li><a href="">Profil</a></li>
+        <li><a href="index.php?c=user&m=information">Profil</a></li>
         <li><a href="index.php?c=intervention&m=index">Mes Participation</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">

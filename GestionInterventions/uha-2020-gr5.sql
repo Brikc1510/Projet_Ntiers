@@ -121,3 +121,14 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+ALTER TABLE `interventions`
+  DROP `dateDepart`,
+  DROP `heureDepart`,
+  DROP `dateArrivee`,
+  DROP `heureArrivee`,
+  DROP `dateRetour`,
+  DROP `heureRetour`;
+
+ALTER TABLE `interventions` ADD `etat` VARCHAR(10) NOT NULL AFTER `responsable`;
+ALTER TABLE `interventions` ADD `idChef` INT NOT NULL AFTER `responsable`;

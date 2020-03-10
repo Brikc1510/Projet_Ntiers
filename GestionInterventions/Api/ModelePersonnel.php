@@ -15,7 +15,7 @@ class ModelePersonnel
         {
             if (!empty($name) && !empty($pass)) {
     
-                $st = $this->con->prepare("select P_CODE,P_MDP,P_GRADE,GP_ID from pompier where P_CODE=? and P_MDP=?");
+                $st = $this->con->prepare("select P_CODE,P_MDP,P_GRADE from pompier where P_CODE=? and P_MDP=?");
                 $st->bindParam(1, $name);
     
                 $st->bindParam(2, $pass);
@@ -96,7 +96,42 @@ class ModelePersonnel
        
         return $Liste;
     }      
+    // recprer les information de la base de données d'un pompier et les envoyer
+    public function information($code)
+    {
+        $st = $this->con->prepare("SELECT * from pompier where P_code=? ");
+        $st->bindParam(1, $code);
+        $res=($st->execute())?$st->fetchAll(PDO::FETCH_OBJ): null;
+        $dbh = null;
+        return $res;
+        //var_dump($users);
+        return $res;
 
+       
+    }   
+    // faire la mise a jour a la base 
+    public function update($code,$name,$pr,$sexe,$dated,$add,$poste,$tele,$email,$datee)
+    {
+        
+        $data =[
+            'name'=>$name,
+            'pr'=>$pr,
+            'sexe'=>$sexe,
+            'dated'=>$dated,
+            'add'=>$add,
+            'poste'=>$poste,
+            'tele'=>$tele,
+            'email'=>$email,
+            'datee'=>$datee,
+            'code'=>$code
+        ];
+        $st = $this->con->prepare("UPDATE `pompier` SET P_NOM=:name,P_PRENOM=:pr,P_SEXE=:sexe,P_BIRTHDATE=:dated, P_ADDRESS=:add,P_PROFESSION=:poste,P_PHONE=:tele,P_EMAIL=:email,P_DATE_ENGAGEMENT=:datee WHERE P_CODE=:code");
+        $st->execute($data);
+        return "ok";
+       
+       
+    }   
+    
 
 
 

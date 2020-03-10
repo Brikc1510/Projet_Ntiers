@@ -31,32 +31,22 @@ class UserController {
         if ($resultat->rowCount() == 1) {
             while ($donnees = $resultat->fetch()) {
                 $type = $donnees['P_GRADE'];
-                $_SESSION["GP_ID"]=$donnees['GP_ID'];
-                $_SESSION["user"]=$donnees['P_CODE'];
-                switch($_SESSION['GP_ID'])
-                {
-                    case 2:
+                if ($type == "SAP2") {
                      //recuprer le Login de celui qui a connecte 
-                     
+                     $_SESSION["user"]=$donnees['P_CODE'];
                     //header("Location: vue/saisieIntervention.php");
-                    //$v->change("entete.php");
-                    //$v->changeb(false);
+                    $v->change("entete.php");
+                    $v->changeb(false);
                     $v->render('saisieIntervention','view');
-                    break;
-                    case 3:
-                    $v->render('saisieIntervention','view');
-                    break;
-                    case 4 :
-                    $v->render('saisieIntervention','view');
-                    break;
-              
-                    case 0:
+                }
+               else 
+               {
                      //recuprer le Login de celui qui a connecte 
+                   $_SESSION["user"]=$donnees['P_CODE'];
                     //header("Location: vue/interventions.php");
-                    //$v->change("enteteU.php");
-                    //$v->changeb(false);
+                    $v->change("enteteU.php");
+                    $v->changeb(false);
                     $v->render('interventions','view1');
-                    break;
                 }
             }
         } else {
@@ -184,6 +174,60 @@ class UserController {
         }
     }
    
-   
+    // envoir au controleur pour recupere les donnes, une fois recuperer ils seront renvoyé a la  VIEW_PROFIL
+
+    public function information()
+    {
+        require_once MODELS.DS.'usersM.php';
+       
+        $m=new UsersModel();
+        $info=$m->information();
+       // var_dump($info);
+        //echo $info;
+        require_once CLASSES.DS.'view.php';
+        $v=new View();
+        $v->setVar('info',$info);
+        $v->render('profil','view');
+    }
+    // appele la methode information pour recupere  les donnes pour ly mettre dans les formulaire 
+    public function modifier()
+    {
+        require_once MODELS.DS.'usersM.php';
+       
+        $m=new UsersModel();
+        $info=$m->information();
+       // var_dump($info);
+        //echo $info;
+        require_once CLASSES.DS.'view.php';
+        $v=new View();
+        $v->setVar('info',$info);
+        $v->render('profil','modifier');
+    }
+
+    //appelle a la methode update dans le model pour mise a jour de la base de données
+    public function modifierbdd()
+    {
+        $name = $_POST['n'];
+        $pr = $_POST['prenom'];
+        $sexe = $_POST['sexe'];
+        $dated = $_POST['dated'];
+        $add = $_POST['add'];
+        $poste = $_POST['poste'];
+        $tele = $_POST['tele'];
+        $email = $_POST['email'];
+        $datee = $_POST['datee'];
+        //echo $datee;
+        require_once MODELS.DS.'usersM.php';
+       
+        $m=new UsersModel();
+        $m->update($name,$pr,$sexe,$dated,$add,$poste,$tele,$email,$datee);
+
+        require_once CLASSES.DS.'view.php';
+        $v=new View();
+        $v->render('interventions','view1');
+        
+    }
+
+
 }
 ?>

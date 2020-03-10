@@ -12,15 +12,11 @@ $_SESSION['i'] = $i;
 <head>
     <meta charset="UTF-8"/>
     <title>Saisi Intervention</title>
-    
     <link rel="stylesheet" type="text/css" href="vendors/css/myStyle.css">
-    <link rel="stylesheet" type="text/css" href="vendors/css/monCSS.css">
     <link rel="stylesheet" type="text/css" href="vendors/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="vendors/js/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet">
 <script src="vendors/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
-
-
 
         
 </head>
@@ -37,7 +33,7 @@ let i =0;
 			$.ajax({
                 
 				type		: 'POST',				// on envoie en post
-				url		: 'index.php?c=intervention&m=saisi',			// fichier de traitement PHP 
+				url		: 'index.php?c=intervention&m=saisi',			// fichier de traitement PHP => Attention a bien vérifier le chemin (rrelatif, ou absolu) !
 				data		:'TV_CODE='+val+'&i='+i ,	// on transmet la donnée, qui sera récupérée par $_POST['TV_CODE']
 				
                 success	: function(t) {
@@ -55,7 +51,8 @@ let i =0;
 			$.ajax({
                 
 				type		: 'POST',				// on envoie en post
-				url		: 'index.php?c=intervention&m=ajouterV',			// fichier de traitement PHP 
+				url		: 'index.php?c=intervention&m=ajouterV',			// fichier de traitement PHP => Attention a bien vérifier le chemin (rrelatif, ou absolu) !
+					// on transmet la donnée, qui sera récupérée par $_POST['TV_CODE']
 				
                 success	: function(t) {
 					
@@ -67,22 +64,12 @@ let i =0;
                 }
 			});
 		});
-    })
-    
-    //Permet l'auto complete
-    $(document).ready(function(){
-			$('#my-form').autocomplete({
-                source: 'index.php?c=intervention&m=chercher'
-			});
-		});   
+	})
     function a()
     {
         i++;
-        console.log(i);
       
     }
-    
-    
     
 </script>
 <?php 
@@ -228,7 +215,7 @@ let i =0;
 
                 <div class="form-group">
                     <label class="control-label">Responsable</label>
-                    <input type="text" name="reponsable" class="my-form-control" id="my-form">
+                    <input type="text" name="reponsable" class="form-control">
                 </div>
                 <div>
                     <button type="submit" class="btn btn-primary">Ajouter une intervention</button>
