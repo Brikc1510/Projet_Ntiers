@@ -115,8 +115,6 @@ class InterventionController {
       $interventions=$m->listAllParticipation();
       require_once CLASSES.DS.'view.php';
       $v=new View();
-      $v->change("entete.php");
-      $v->changeb(false);
       $v->setVar('interventionlist',$interventions);
       $v->render('intervention','list');
     }
@@ -156,6 +154,15 @@ class InterventionController {
       // Affichage au sein de la vue des données récupérées via le model
       $v->render('interventionAvalider','list');
     }
+    public function modifier($id=null){
+      require_once MODELS.DS.'interventionM.php';
+      $m=new InterventionModel();
+      require_once CLASSES.DS.'view.php';
+
+      $intervention=$m->modifier($id,$_POST["modifier"]);
+      $this->listeParticipation();
+      // Affichage au sein de la vue des données récupérées via le model
+    }
 
 
     public function edit($id=null){
@@ -164,11 +171,41 @@ class InterventionController {
         //$intervention=$intervention->listOne($id);
         require_once CLASSES.DS.'view.php';
         $v=new View();
-        if ($intervention=$m->listOne($id)) $v->setVar('i',$intervention);
-        $v->setVar('intervention',$intervention);
+        if ($intervention=$m->listOne($id)) 
+        $v->setVar('i',$intervention);
+        //$v->setVar('intervention',$intervention);
         $v->render('intervention','form');
 
     }
+    public function modified($id=null){
+      require_once MODELS.DS.'interventionM.php';
+      $m= new InterventionModel();
+      //$intervention=$intervention->listOne($id);
+      require_once CLASSES.DS.'view.php';
+      $v=new View();
+      if(!empty($_POST['iop']))
+        {
+            $opm = '1'; 
+        }
+        else
+        {
+            $opm='0';
+        }
+
+        if(!empty($_POST['important']))
+        {
+            $imp = '1'; 
+        }
+        else
+        {
+            $imp='0';
+        }
+      $intervention=$m->modifierInter($id,$_POST["idChef"],$_POST["responsable"],$_POST["commune"],$_POST["adresse"],$_POST["typeI"],$_POST["requerant"],$_POST["dateDebut"],$_POST["heureDebut"],$_POST["dateFin"],$_POST["heureFin"],$opm,$imp,$_POST["dateDepart"],$_POST["heureDepart"],$_POST["dateArrivee"],$_POST["heureArrivee"],$_POST["dateRetour"],$_POST["heureRetour"]);
+      $this->listeParticipation();
+
+  }
+
+
     public function saisi(){
       require_once CLASSES.DS.'view.php';
       $v=new View();
@@ -209,44 +246,21 @@ class InterventionController {
   }
 
 
-  public function filtre(){
-    if($_POST['submit']){
-      $id=$_POST['id'];
-      $adresse=$_POST['adresse'];
-      $dateDebut=$_POST['dateDebut'];
-      $heureDebut=$_POST['heureDebut'];
-      $dateFin=$_POST['dateFin'];
-      $heureFin=$_POST['heureFin'];
-      $responsable=$_POST['responsable'];
-      $TV_CODE=$_POST['TV_CODE'];
-      if($id!="" || $adresse!="" || $dateDebut!="" || $heureDebut!="" || $dateFin!="" || $heureFin!="" || $responsable!="" || $TV_CODE!="") {
-       $sql='SELECT * FROM interventions WHERE id=$id || adresse=$adresse || responsable=$responsable 
-       ||  TV_CODE=$TV_CODE || dateDebut=$dateDebut AND heureDebut=$heureDebut AND dateFin=$dateFin AND heureFin=$heureFin';
-        };     
-       try {
-             $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '1234');
-             $stmt=$dbh->prepare($sql);
-             $res=($stmt->execute())?$stmt->fetchAll(PDO::FETCH_OBJ): null;
-             $dbh = null;
-             return $res;
-       } catch (PDOException $e) {
-             print "Erreur !: " . $e->getMessage() . "<br/>";
-             die();
-       }	
-     }
-      
-    }
+  
      
      
    
    public function filtrer(){
-       $filtres=filtre();
+      
        require_once CLASSES.DS.'view.php';
+       require_once MODELS.DS.'interventionM.php';
        $v=new View();
-       $v->change("entete.php");
-       $v->changeb(false);
-       $v->setVar('interventionfiltreslist',$filtres);
-       $v->render('interventionfiltre','list');
+       $m=new InterventionModel();
+      
+       $filtres=$m->filtrer($_POST["DateD"],$_POST["DateF"]);
+       $v->setVar('interventionlist',$filtres);
+       $v->render('intervention','list');
+       
      }
    
 

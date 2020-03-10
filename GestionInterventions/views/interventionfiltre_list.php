@@ -9,81 +9,26 @@
 <body>
 
 <?php require_once VIEWS.DS.'common'.DS.'entete.php';  ?>
+
+<form id="a" method="post" action="index.php?c=intervention&m=filtrer" class="text-center"> 
+            
+            <style type="text/css"> #a div {display: inline-block }</style>
+                <div class="form-group">
+                    <label class="control-label">Date Debut</label>
+                    <input type="date" name="DateD" class="form-control" required >
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Date Fin</label>
+                    <input type="date" name="DateF" class="form-control" required >
+                </div> 
+                     <input type="submit" name="Filter" value="Filter" class="btn btn-success" />  
+                </form> 
 <div class="col-md-12 col-xs-12 spacer">
     <div class="panel panel-info">
-        <div class="panel-heading text-center">Liste des interventions filtrées</div
+        <div class="panel-heading text-center">Liste des interventions filtrées</div>
 				   
 				   
-<main role="main" class="container">
-    <div class="starter-template">
-        <h1>Selection</h1>
-    </div>
 
-    <div class="row">
-        <label class="col-md-4 control-label">Id:</label>
-		<div class="col-md-8">
-            <input type="text" name="id" value="" class="form-control">
-        </div>
-    </div>
-
-    <div class="row">
-    <label class="col-md-4 control-label">Adresse :</label>
-    <div class="col-md-8">
-        <input type="text" name="adresse" value="" class="form-control">
-    </div>
-    </div>
-     
-    <div class="row">
-        <label class="col-md-4 control-label">Date debut :</label>
-        <div class="col-md-8">
-            <input type="date" name="dateDebut" value="" class="form-control">
-        </div>
-    </div>
-    </div>
-    <div class="row">
-        <label class="col-md-4 control-label">Heure debut :</label>
-        <div class="col-md-8">
-            <input type="time" name="heureDebut" value="" class="form-control">
-        </div>
-    </div>
-
-    <div class="row">
-        <label class="col-md-4 control-label">Date fin :</label>
-        <div class="col-md-8">
-            <input type="date" name="dateFin" value="" class="form-control">
-        </div>
-    </div>
-    </div>
-    <div class="row">
-        <label class="col-md-4 control-label">Heure fin :</label>
-        <div class="col-md-8">
-            <input type="time" name="heureFin" value="" class="form-control">
-        </div>
-    </div>
-	
-    <div class="row">
-        <label class="col-md-4 control-label">Responsable :</label>
-        <div class="col-md-8">
-            <input type="text" name="responsable" value="" class="form-control">
-        </div>
-    </div>
-    <div class="row">
-        <label class="col-md-4 control-label">TV_CODE :</label>
-        <div class="col-md-8">
-            <input type="text" name="TV_CODE" value="" class="form-control">
-        </div>
-    </div>
-
-    <div class="row">
-        <label class="col-md-4 control-label"></label>
-        <div class="col-md-8">
-            <input type="submit" name="submit" value="Filtrer" class="btn btn-primary" />
-        </div>
-    </div>
-
-
-
-</main><!-- /.container -->
 				   
 				   
                    <div class="row">
@@ -135,6 +80,9 @@
         </table>
     </div>
     </div>
+    <form method="post" action="index.php?c=intervention&m=exporter" class="text-center">  
+                     <input type="submit" name="export" value="CSV Export" class="btn btn-success" />  
+                </form> 
 </div>
 </body>
 </html>

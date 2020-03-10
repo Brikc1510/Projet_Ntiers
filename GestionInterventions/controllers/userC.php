@@ -51,11 +51,11 @@ class UserController {
                     break;
               
                     case 0:
-                     //recuprer le Login de celui qui a connecte 
-                    //header("Location: vue/interventions.php");
-                    //$v->change("enteteU.php");
-                    //$v->changeb(false);
-                    $v->render('interventions','view1');
+                    require_once MODELS.DS.'interventionM.php';
+                    $m=new InterventionModel();
+                    $interventions=$m->listAllParticipation();
+                    $v->setVar('interventionlist',$interventions);
+                    $v->render('intervention','list');
                     break;
                 }
             }
