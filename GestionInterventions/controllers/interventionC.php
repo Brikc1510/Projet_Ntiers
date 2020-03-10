@@ -237,7 +237,7 @@ class InterventionController {
        
   }
   
-  public function exporter()
+  public function exporter($id =null)
   {
     require_once MODELS.DS.'interventionM.php';
       $m=new InterventionModel();

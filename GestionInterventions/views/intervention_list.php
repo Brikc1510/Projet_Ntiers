@@ -77,6 +77,7 @@
     </div>
     
     </div>
+    <?php $_SESSION["list"]=$interventionlist;?>
     <form method="post" action="index.php?c=intervention&m=exporter" class="text-center">  
                      <input type="submit" name="export" value="CSV Export" class="btn btn-success" />  
                 </form> 

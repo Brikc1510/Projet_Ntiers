@@ -2,6 +2,7 @@
 
 class InterventionModel {
 
+   
     public function construct(){}
 
     public function listAllParticipation(){
@@ -283,18 +284,21 @@ class InterventionModel {
     }
     public function exporter()
     {
+        session_start();
         $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '1234');
-        $sql = "SELECT * FROM interventions";
+        //$sql = "SELECT * FROM interventions";
 
         //Prepare our SQL query.
-        $statement = $dbh->prepare($sql);
+        //$statement = $dbh->prepare($sql);
 
         //Executre our SQL query.
-        $statement->execute();
+        //$statement->execute();
 
         //Fetch all of the rows from our MySQL table.
-        $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
-
+        //$rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $rows = (array) $_SESSION["list"];
+       
+        
         //Get the column names.
         $columnNames = array();
         if(!empty($rows)){
@@ -310,7 +314,8 @@ class InterventionModel {
         $fileName = 'mysql-export.csv';
 
         //Set the Content-Type and Content-Disposition headers to force the download.
-        header('Content-Type: application/excel');
+        header('Content-Encoding: UTF-8');
+        header('Content-Type: text/csv;charset=UTF-8');
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
 
         //Open up a file pointer
@@ -321,7 +326,7 @@ class InterventionModel {
 
         //Then, loop through the rows and write them to the CSV file.
         foreach ($rows as $row) {
-            fputcsv($fp, $row);
+            fputcsv($fp, (array)$row);
         }
 
         //Close the file pointer.
@@ -329,8 +334,7 @@ class InterventionModel {
         }
 
         public function filtrer($d,$f){
-            var_dump($d);
-            var_dump($f);
+           
             session_start();
             $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '1234');
             switch($_SESSION['GP_ID'])
