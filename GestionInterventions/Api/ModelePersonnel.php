@@ -15,7 +15,7 @@ class ModelePersonnel
         {
             if (!empty($name) && !empty($pass)) {
     
-                $st = $this->con->prepare("select P_CODE,P_MDP,P_GRADE from pompier where P_CODE=? and P_MDP=?");
+                $st = $this->con->prepare("select P_CODE,P_MDP,P_GRADE,GP_ID from pompier where P_CODE=? and P_MDP=?");
                 $st->bindParam(1, $name);
     
                 $st->bindParam(2, $pass);

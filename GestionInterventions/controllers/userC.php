@@ -31,22 +31,32 @@ class UserController {
         if ($resultat->rowCount() == 1) {
             while ($donnees = $resultat->fetch()) {
                 $type = $donnees['P_GRADE'];
-                if ($type == "SAP2") {
+                $_SESSION["GP_ID"]=$donnees['GP_ID'];
+                $_SESSION["user"]=$donnees['P_CODE'];
+                switch($_SESSION['GP_ID'])
+                {
+                    case 2:
                      //recuprer le Login de celui qui a connecte 
-                     $_SESSION["user"]=$donnees['P_CODE'];
+                     
                     //header("Location: vue/saisieIntervention.php");
-                    $v->change("entete.php");
-                    $v->changeb(false);
+                    //$v->change("entete.php");
+                    //$v->changeb(false);
                     $v->render('saisieIntervention','view');
-                }
-               else 
-               {
+                    break;
+                    case 3:
+                    $v->render('saisieIntervention','view');
+                    break;
+                    case 4 :
+                    $v->render('saisieIntervention','view');
+                    break;
+              
+                    case 0:
                      //recuprer le Login de celui qui a connecte 
-                   $_SESSION["user"]=$donnees['P_CODE'];
                     //header("Location: vue/interventions.php");
-                    $v->change("enteteU.php");
-                    $v->changeb(false);
+                    //$v->change("enteteU.php");
+                    //$v->changeb(false);
                     $v->render('interventions','view1');
+                    break;
                 }
             }
         } else {

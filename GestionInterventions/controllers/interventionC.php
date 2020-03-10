@@ -4,7 +4,7 @@ class InterventionController {
     public function construct(){}
 
     public function index() {
-        $this->liste();
+        $this->listeParticipation();
     }
     public function add()
     {
@@ -44,11 +44,14 @@ class InterventionController {
         $nom =$_POST["00"];
         $nom_prenom= explode(" ",$nom);
         $idC=$p->get_p_code($nom_prenom[0],$nom_prenom[1]);
+        $nom_prenom= explode(" ",$_POST['reponsable']);
+        $idR=$p->get_p_code($nom_prenom[0],$nom_prenom[1]);
+
 
         $intervention = new Intervention($_POST['id'],$_POST['commune'],$_POST['adresse'],$_POST['type']
                                         ,$_POST['requerant'],$_POST['dateDebut']
                                         ,$_POST['dateFin'],$_POST['heureDebut'],
-                                        $_POST['heureFin'],$opm,$imp, $_POST['reponsable'],$idC['P_CODE']);
+                                        $_POST['heureFin'],$opm,$imp,$idR['P_CODE'],$idC['P_CODE']);
 
         $gestionInter = new InterventionModel();
         $gestionInter->ajouterIntervention($intervention); 
@@ -106,16 +109,25 @@ class InterventionController {
       $v=new View();
       $v->render('saisieIntervention','view');
     }
-    public function liste(){
+    public function listeParticipation(){
       require_once MODELS.DS.'interventionM.php';
       $m=new InterventionModel();
-      $interventions=$m->listAll();
+      $interventions=$m->listAllParticipation();
       require_once CLASSES.DS.'view.php';
       $v=new View();
       $v->change("entete.php");
       $v->changeb(false);
       $v->setVar('interventionlist',$interventions);
       $v->render('intervention','list');
+    }
+    public function listeInterAvalider(){
+      require_once MODELS.DS.'interventionM.php';
+      $m=new InterventionModel();
+      $intervention=$m->listeInterAvalider();
+      require_once CLASSES.DS.'view.php';
+      $v=new View();
+      $v->setVar('interventionlistAvalider',$intervention);
+      $v->render('interventionAvalider','list');
     }
     public function view($id=null){
       require_once MODELS.DS.'interventionM.php';
@@ -126,6 +138,25 @@ class InterventionController {
       // Affichage au sein de la vue des données récupérées via le model
       $v->render('intervention','view');
     }
+    public function view1($id=null){
+      require_once MODELS.DS.'interventionM.php';
+      $m=new InterventionModel();
+      require_once CLASSES.DS.'view.php';
+      $v=new View();
+      if ($intervention=$m->listOne($id)) $v->setVar('j',$intervention);
+      // Affichage au sein de la vue des données récupérées via le model
+      $v->render('intervention','view1');
+    }
+    public function valider($id=null){
+      require_once MODELS.DS.'interventionM.php';
+      $m=new InterventionModel();
+      require_once CLASSES.DS.'view.php';
+      $v=new View();
+      $intervention=$m->valider($id);
+      // Affichage au sein de la vue des données récupérées via le model
+      $v->render('interventionAvalider','list');
+    }
+
 
     public function edit($id=null){
         require_once MODELS.DS.'interventionM.php';
@@ -168,6 +199,7 @@ class InterventionController {
         echo json_encode($Liste);
        
   }
+  
   public function exporter()
   {
     require_once MODELS.DS.'interventionM.php';
