@@ -209,5 +209,47 @@ class InterventionController {
   }
 
 
+  public function filtre(){
+    if($_POST['submit']){
+      $id=$_POST['id'];
+      $adresse=$_POST['adresse'];
+      $dateDebut=$_POST['dateDebut'];
+      $heureDebut=$_POST['heureDebut'];
+      $dateFin=$_POST['dateFin'];
+      $heureFin=$_POST['heureFin'];
+      $responsable=$_POST['responsable'];
+      $TV_CODE=$_POST['TV_CODE'];
+      if($id!="" || $adresse!="" || $dateDebut!="" || $heureDebut!="" || $dateFin!="" || $heureFin!="" || $responsable!="" || $TV_CODE!="") {
+       $sql='SELECT * FROM interventions WHERE id=$id || adresse=$adresse || responsable=$responsable 
+       ||  TV_CODE=$TV_CODE || dateDebut=$dateDebut AND heureDebut=$heureDebut AND dateFin=$dateFin AND heureFin=$heureFin';
+        };     
+       try {
+             $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '1234');
+             $stmt=$dbh->prepare($sql);
+             $res=($stmt->execute())?$stmt->fetchAll(PDO::FETCH_OBJ): null;
+             $dbh = null;
+             return $res;
+       } catch (PDOException $e) {
+             print "Erreur !: " . $e->getMessage() . "<br/>";
+             die();
+       }	
+     }
+      
+    }
+     
+     
+   
+   public function filtrer(){
+       $filtres=filtre();
+       require_once CLASSES.DS.'view.php';
+       $v=new View();
+       $v->change("entete.php");
+       $v->changeb(false);
+       $v->setVar('interventionfiltreslist',$filtres);
+       $v->render('interventionfiltre','list');
+     }
+   
+
+
 }
 ?>

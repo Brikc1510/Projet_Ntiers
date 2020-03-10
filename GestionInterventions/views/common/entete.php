@@ -21,18 +21,22 @@
           case 2:
           echo '<li><a href="index.php?c=intervention&m=afficher">Saisi Interventions</a></li>';
           echo '<li><a href="index.php?c=intervention&m=index">Interventions</a></li>';
+          echo '<li><a href="index.php?c=intervention&m=filtrer">Filtrer</a></li>';
+
           break;
           //Droit pour chef de centre
           case 3:
             echo '<li><a href="index.php?c=intervention&m=afficher">Saisi Interventions</a></li>';
             echo '<li><a href="index.php?c=intervention&m=index">Interventions</a></li>';
             echo '<li><a href="index.php?c=intervention&m=listeInterAvalider">Interventions à valider</a></li>';
+            echo '<li><a href="index.php?c=intervention&m=filtrer">Filtrer</a></li>';
           break;
           //Droit pour admin
           case 4:
             echo '<li><a href="index.php?c=intervention&m=afficher">Saisi Interventions</a></li>';
             echo '<li><a href="index.php?c=intervention&m=index">Interventions</a></li>';
             echo '<li><a href="index.php?c=intervention&m=listeInterAvalider">Interventions à valider</a></li>';
+            echo '<li><a href="index.php?c=intervention&m=filtrer">Filtrer</a></li>';
           break;
         }
       ?>
