@@ -54,7 +54,7 @@ else
 {
 	if(isset($_GET['c'])  && isset($_GET['m']))
 	{
-		if($_GET['c']== "user" && $_GET['m']=="login")
+		if($_GET['c']== "user" && ($_GET['m']=="login" || $_GET['m']=="oublier" || $_GET['m']=="reset" || $_GET['m']=="change"))
 		{
 			$controller=strtolower(trim($_GET['c']));
 			$method=strtolower(trim($_GET['m']));
