@@ -15,38 +15,62 @@ define('CLASSES', ROOT.DS.'classes');
 define('API', ROOT.DS.'api');
 
 // =====================  Détermination du controleur à utiliser: Est-ce que j'ai un paramètre 'c' dans mon URL?
-
-
-
-if (isset($_GET['c']) && isset($_SESSION['name'])){
-	//Il y a un paramètre de précisé: c'est le nom du controleur demandé.
-	$controller=strtolower(trim($_GET['c']));
-}else{
-	//Pas de paramètre => le contrôleur par défaut est le contrôleur HOME
-	$controller='home';
-}
-
-// =====================  Détermination de la méthode à appeler: Est-ce que j'ai un paramètre 'm' dans mon URL?
-if (isset($_GET['m']) && isset($_SESSION['name'])){
-		//Il y a un paramètre de précisé: c'est le nom de la méthode demandée.
-  $method=strtolower(trim($_GET['m']));
-}else{
-	//Pas de paramètre => la méthode par défaut est la méthode INDEX
-	$method='index';
-}
-if (isset($_GET['id'])){
-	//Il y a un paramètre de précisé: c'est l'identifiant
-  $id=strtolower(trim($_GET['id']));
-}else{
-  //Pas de paramètre => la méthode par défaut est la méthode INDEX
-  $id=null;
-}
-
-if(!isset($_SESSION['name']) && isset($_GET['c']) && isset($_GET['m']))
+	session_start();
+if(isset($_SESSION['GP_ID']))
 {
+	
+	if (isset($_GET['c'])){
+		//Il y a un paramètre de précisé: c'est le nom du controleur demandé.
+		$controller=strtolower(trim($_GET['c']));
+	}else{
+		//Pas de paramètre => le contrôleur par défaut est le contrôleur HOME
+		$controller='home';
+	}
 
-	$controller=strtolower(trim($_GET['c']));
+	// =====================  Détermination de la méthode à appeler: Est-ce que j'ai un paramètre 'm' dans mon URL?
+	if (isset($_GET['m'])){
+			//Il y a un paramètre de précisé: c'est le nom de la méthode demandée.
 	$method=strtolower(trim($_GET['m']));
+	}else{
+		//Pas de paramètre => la méthode par défaut est la méthode INDEX
+		$method='index';
+	}
+	if (isset($_GET['id'])){
+		//Il y a un paramètre de précisé: c'est l'identifiant
+	$id=strtolower(trim($_GET['id']));
+	}else{
+	//Pas de paramètre => la méthode par défaut est la méthode INDEX
+	$id=null;
+	}
+
+	if(!isset($_SESSION['name']) && isset($_GET['c']) && isset($_GET['m']))
+	{
+
+		$controller=strtolower(trim($_GET['c']));
+		$method=strtolower(trim($_GET['m']));
+	}
+}
+else
+{
+	if(isset($_GET['c'])  && isset($_GET['m']))
+	{
+		if($_GET['c']== "user" && $_GET['m']=="login")
+		{
+			$controller=strtolower(trim($_GET['c']));
+			$method=strtolower(trim($_GET['m']));
+			$id=null;
+		}else
+		{
+			$controller='home';
+			$method='index';
+			$id=null;
+		}
+	}else
+	{
+		$controller='home';
+		$method='index';
+		$id=null;
+	}
 }
 
 // =====================  Appel

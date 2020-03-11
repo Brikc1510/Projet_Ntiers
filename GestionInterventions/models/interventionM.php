@@ -15,34 +15,40 @@ class InterventionModel {
                 case 0:
                     $sql = 'SELECT DISTINCT * from interventions as i 
                     INNER JOIN personne p ON p.P_CODE=?
-                    INNER JOIN vehicules v ON v.ID=i.id AND v.V_ID=p.v_ID where etat="Validée"';
+                    INNER JOIN vehicules v ON v.ID=i.id AND v.V_ID=p.v_ID where etat="Validee"';
                     $stmt=$dbh->prepare($sql);
                     $stmt->bindParam(1,$_SESSION['user']);
                    
                 break;
 
                 case 2:
-                    $sql = 'SELECT * from interventions  
+                    $sql = 'SELECT * from interventions as i
+                    INNER JOIN vehicules v ON v.ID=i.id  
                      where idChef=?';
                     $stmt=$dbh->prepare($sql);
                     $stmt->bindParam(1,$_SESSION['user']);
                    
                 break;
 
-                default:
-                    $sql = 'SELECT * from interventions 
-                    where etat="Validée" AND responsable=?';
+                case 3:
+                    $sql = 'SELECT * from interventions  as i
+                    INNER JOIN vehicules v ON v.ID=i.id
+                    where responsable=?';
                     $stmt=$dbh->prepare($sql);
                     $stmt->bindParam(1,$_SESSION['user']);
                 break;
+
+                case 4:
+                    $sql = 'SELECT * from interventions as i
+                    INNER JOIN vehicules v ON v.ID=i.id';
+                    $stmt=$dbh->prepare($sql);
+                    $stmt->bindParam(1,$_SESSION['user']);
+                break;
+
                 
                 
             }    
-       /*  $sql='SELECT DISTINCT i.id,i.commune, i.adresse, i.typeI, i.requerant, i.dateDebut, i.heureDebut, i.dateFin, i.heureFin, 
-         i.responsable, v.TV_CODE
-        FROM interventions i 
-        INNER JOIN personne p ON p.P_CODE=?
-        INNER JOIN vehicules v ON v.ID=i.id AND v.V_ID=p.v_ID where etat="Validée"'; */
+       
 
         
         try {
@@ -56,7 +62,7 @@ class InterventionModel {
     }
     public function valider($id)
     {
-        $sql='UPDATE interventions SET etat="Validée" where id=?';
+        $sql='UPDATE interventions SET etat="Validee" where id=?';
        
         try {
             $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '1234');
@@ -183,7 +189,7 @@ class InterventionModel {
     }
     public function listeInterAvalider()
     {
-        session_start();
+        //session_start();
         $sql='SELECT *
         FROM interventions 
         WHERE responsable=:id AND etat ="aValider"';
@@ -284,7 +290,7 @@ class InterventionModel {
     }
     public function exporter()
     {
-        session_start();
+        //session_start();
         $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '1234');
         //$sql = "SELECT * FROM interventions";
 
@@ -333,41 +339,47 @@ class InterventionModel {
         fclose($fp);
         }
 
-        public function filtrer($d,$f){
+        public function filtrer($d,$f,$etat,$type){
            
-            session_start();
+            //session_start();
             $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '1234');
             switch($_SESSION['GP_ID'])
             {
                 case 0:
                     $sql = 'SELECT * from interventions as i 
                     INNER JOIN personne p ON p.P_CODE=?
-                    INNER JOIN vehicules v ON v.ID=i.id AND v.V_ID=p.v_ID where etat="Validée"
+                    INNER JOIN vehicules v ON v.ID=i.id AND v.V_ID=p.v_ID where etat=? AND typeI=?
                      AND dateDebut between ? AND ?';
                     $stmt=$dbh->prepare($sql);
                     $stmt->bindParam(1,$_SESSION['user']);
-                    $stmt->bindParam(2,$d);
-                    $stmt->bindParam(3,$f);
+                    $stmt->bindParam(2,$etat);
+                    $stmt->bindParam(3,$type);
+                    $stmt->bindParam(4,$d);
+                    $stmt->bindParam(5,$f);
                 break;
 
                 case 2:
                     $sql = 'SELECT * from interventions  
-                     where etat="Validée" AND idChef=?
+                     where etat=? AND idChef=? AND typeI=?
                      AND dateDebut between ? AND ?';
                     $stmt=$dbh->prepare($sql);
-                    $stmt->bindParam(1,$_SESSION['user']);
-                    $stmt->bindParam(2,$d);
-                    $stmt->bindParam(3,$f);
+                    $stmt->bindParam(2,$_SESSION['user']);
+                    $stmt->bindParam(1,$etat);
+                    $stmt->bindParam(3,$type);
+                    $stmt->bindParam(4,$d);
+                    $stmt->bindParam(5,$f);
                 break;
 
                 default:
                     $sql = 'SELECT * from interventions 
-                    where etat="Validée" AND responsable=?
+                    where etat=? AND responsable=? AND typeI=?
                      AND dateDebut between ? AND ?';
-                    $stmt=$dbh->prepare($sql);
-                    $stmt->bindParam(1,$_SESSION['user']);
-                    $stmt->bindParam(2,$d);
-                    $stmt->bindParam(3,$f);
+                     $stmt=$dbh->prepare($sql);
+                    $stmt->bindParam(2,$_SESSION['user']);
+                    $stmt->bindParam(1,$etat);
+                    $stmt->bindParam(3,$type);
+                    $stmt->bindParam(4,$d);
+                    $stmt->bindParam(5,$f);
                 break;
                 
                 

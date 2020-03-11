@@ -15,6 +15,7 @@ class UserController {
     {
         require_once MODELS.DS.'usersM.php';
         require_once CLASSES.DS.'view.php';
+        //session_start();
         $name = $_POST['user'];
         $pass = $_POST['pass'];
         $_SESSION['name']=$name;
@@ -73,7 +74,7 @@ class UserController {
         //Pas de données à gérer
         //La vue à afficher est la vue index
         require_once CLASSES.DS.'view.php';
-        session_start();
+        //session_start();
         session_unset();
         session_destroy();
         $v=new View();

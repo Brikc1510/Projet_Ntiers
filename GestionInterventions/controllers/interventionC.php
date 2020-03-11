@@ -111,10 +111,17 @@ class InterventionController {
     }
     public function listeParticipation(){
       require_once MODELS.DS.'interventionM.php';
+      require_once API.DS.'dataBase.php';
+      require_once API.DS.'ModeleIntervention.php';
+      $con=new DataBase();
+      $con=$con->connect();
+      $mo=new ModeleIntervention($con);
       $m=new InterventionModel();
       $interventions=$m->listAllParticipation();
+      $typesintervention=$mo->get_type_intervention();
       require_once CLASSES.DS.'view.php';
       $v=new View();
+      $v->setVar('typesinterventionlist',$typesintervention);
       $v->setVar('interventionlist',$interventions);
       $v->render('intervention','list');
     }
@@ -151,8 +158,7 @@ class InterventionController {
       require_once CLASSES.DS.'view.php';
       $v=new View();
       $intervention=$m->valider($id);
-      // Affichage au sein de la vue des données récupérées via le model
-      $v->render('interventionAvalider','list');
+      $this->listeInterAvalider();
     }
     public function modifier($id=null){
       require_once MODELS.DS.'interventionM.php';
@@ -254,10 +260,16 @@ class InterventionController {
       
        require_once CLASSES.DS.'view.php';
        require_once MODELS.DS.'interventionM.php';
+       require_once API.DS.'dataBase.php';
+      require_once API.DS.'ModeleIntervention.php';
+      $con=new DataBase();
+      $con=$con->connect();
+      $mo=new ModeleIntervention($con);
        $v=new View();
        $m=new InterventionModel();
-      
-       $filtres=$m->filtrer($_POST["DateD"],$_POST["DateF"]);
+       $typesintervention=$mo->get_type_intervention();
+       $v->setVar('typesinterventionlist',$typesintervention);
+       $filtres=$m->filtrer($_POST["DateD"],$_POST["DateF"],$_POST["etat"],$_POST['type']);
        $v->setVar('interventionlist',$filtres);
        $v->render('intervention','list');
        

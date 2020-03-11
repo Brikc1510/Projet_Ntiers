@@ -137,7 +137,7 @@ let i =0;
                 <div class="form-group">
                     <label class="control-label">Requérant</label>
                         <select type="text" name="requerant" class="form-control">
-                            <option value="Alerte locale" selected>CODIS</option>
+                            <option value="CODIS" selected>CODIS</option>
                              <option value="Alerte locale">Alerte locale</option>
                         </select>
                 </div>

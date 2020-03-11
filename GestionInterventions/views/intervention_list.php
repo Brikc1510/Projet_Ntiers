@@ -14,6 +14,29 @@
             
             <style type="text/css"> #a div {display: inline-block }</style>
                 <div class="form-group">
+                    <label class="control-label">Type Intervention</label>
+                    <select type="text" name="type" class="form-control">
+                           <?php echo '<option value="AP">AP</option>';
+                        
+                            foreach ($typesinterventionlist as $r) {
+                                
+                                echo '<option value="'. $r['TI_CODE'] .'">'. $r['TI_CODE'] .'</option>';
+                            
+                            }
+                            
+                        ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Etat Intervention</label>
+                    <select type="text" name="etat" class="form-control">
+                            <option value="Validee" selected>Validée</option>
+                            <option value="aValider">A Valider</option>
+                            <option value="aModifier">A Modifier</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label class="control-label">Date Debut</label>
                     <input type="date" name="DateD" class="form-control" required >
                 </div>
@@ -44,9 +67,7 @@
                 <th scope="col">Requerant</th>
                 <th scope="col">Responsable</th>
                 <th scope="col">Type Véhicule</th>
-                <th scope="col"><i class="fas fa-eye"></i></th>
-        <th scope="col"><i class="fas fa-edit"></i></th>
-        <th scope="col"><i class="fas fa-trash-alt"></i></th>
+        
 
             </tr>
             </thead>
@@ -64,8 +85,7 @@
 
                     
                     <td><?php if (isset($i->id)) echo '<a href="index.php?c=intervention&m=view&id='.$i->id.'" data-toggle="tooltip" title="Voir" class="btn btn-success btn-sm"><i class="fas fa-eye">Voir</i></a>';?></td>
-                    <td><?php if ($i->etat == "aModifier") echo '<a href="index.php?c=intervention&m=edit&id='.$i->id.'" data-toggle="tooltip" title="Modifier" class="btn btn-warning  btn-sm">Modifier<i class="fas fa-edit"></i></a>';?></td>
-                    
+                    <td><?php if ($i->etat == "aModifier" && ($_SESSION['GP_ID']==2 || $_SESSION['GP_ID']==3 ||$_SESSION['GP_ID']==4) && $_SESSION['user']== $i->idChef) echo '<a href="index.php?c=intervention&m=edit&id='.$i->id.'" data-toggle="tooltip" title="Modifier" class="btn btn-warning  btn-sm">Modifier<i class="fas fa-edit"></i></a>';?></td>
 
 
                 </tr>
