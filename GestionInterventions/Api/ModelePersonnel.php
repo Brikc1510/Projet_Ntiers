@@ -97,7 +97,12 @@ class ModelePersonnel
         return $Liste;
     }      
 
+    /* if(!empty($_GET['id']) && !empty($_GET['pass']))
+    {   $pass=$_GET['pass'];
+        $id=$_GET['id'];
 
+        check_conn($id,$_GET['pass']);
+    } */
 
 
 

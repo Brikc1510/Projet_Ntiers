@@ -80,7 +80,7 @@ class InterventionModel {
     public function modifierInter($id,$idChef,$resp,$c,$adresse,$typeI,$requerant,$dateDebut,$heureDebut,$dateFin,$heureFin,$opm,$important,$dateDepart,$heureDepart,$dateArrivee,$heureArrivee,$dateRetour,$heureRetour)
     {
         $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '1234');
-        var_dump($dbh);
+       
         $sql= 'UPDATE interventions 
         SET 
         commune=:commune,
@@ -137,12 +137,12 @@ class InterventionModel {
             $exe->bindParam(':etat',$etat );
             $exe->bindParam(':commentaire',$commentaire );
             $exe->bindParam(":id",$id);
-            var_dump($exe);
+     
            
             
             
             $res=($exe->execute())?$exe->fetchAll(PDO::FETCH_OBJ): null;
-            var_dump($res);
+          
 
 
             $exe=$dbh->prepare($sql1);
@@ -290,18 +290,9 @@ class InterventionModel {
     }
     public function exporter()
     {
-        //session_start();
+        
         $dbh = new PDO('mysql:host=localhost;dbname=uha-2020-gr5;charset=utf8', 'root', '1234');
-        //$sql = "SELECT * FROM interventions";
-
-        //Prepare our SQL query.
-        //$statement = $dbh->prepare($sql);
-
-        //Executre our SQL query.
-        //$statement->execute();
-
-        //Fetch all of the rows from our MySQL table.
-        //$rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+        
         $rows = (array) $_SESSION["list"];
        
         

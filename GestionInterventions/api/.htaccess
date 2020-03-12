@@ -1,0 +1,7 @@
+RewriteEngine On # Activer le module Rewrite
+RewriteRule ^interventions/(.*)?$ ModeleIntervention.php [QSA,L]
+RewriteRule ^vehicules/type/(.*)?$ ModeleVehicule.php [QSA,L]
+RewriteRule ^vehicules/mat/(.*)?$ ModeleVehicule.php?code=$1 [QSA,L]
+RewriteRule ^vehicules/role/(.*)?$ ModeleVehicule.php?role=$1 [QSA,L]
+RewriteRule ^vehicules/id/(.*)?$ ModeleVehicule.php?id=$1 [QSA,L]
+RewriteRule ^personnes/cnx/(.*)/(.*)?$ ModelePersonnel.php?id=$1&pass=$2 [QSA,L]
