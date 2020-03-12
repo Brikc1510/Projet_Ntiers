@@ -36,7 +36,30 @@ function fAge($date) {
     <div class="row">
         <label class="col-md-4 control-label">Type :</label>
         <div class="col-md-8">
-            <input type="text" name="typeI" value="<?php echo $i->typeI ?>" class="form-control">
+        <select type="text" name="typeI" class="form-control">
+            <?php
+            $url = 'http://127.0.0.1/Projet_Ntiers/GestionInterventions/api/interventions/';
+                        $options = array(
+                            'http' => array(
+                                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                                'method'  => 'GET'
+                            )
+                        );
+                        $context  = stream_context_create($options);
+                        $result = file_get_contents($url, false, $context);
+                        //var_dump($result);
+                        
+                        if ($result === FALSE) {}
+                        $array = json_decode($result, true);
+                        echo '<option value="'.$i->typeI.'">'.$i->typeI.'</option>';
+                    
+                    foreach ($array as $r) {
+                            
+                            echo '<option value="'. $r['TI_CODE'] .'">'. $r['TI_CODE'] .'</option>';
+                        
+                        }
+                    echo '</select>';
+            ?>
         </div>
     </div>
      <div class="row">

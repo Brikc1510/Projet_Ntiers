@@ -28,8 +28,7 @@
     </script>
 <?php 
        require_once API.DS.'dataBase.php';
-       require_once API.DS.'ModeleVehicule.php';
-        session_start();
+
 ?>
                 
                         
@@ -39,14 +38,23 @@
                     <select type="text" <?php echo 'name='."TV_CODE".$_SESSION['i'] ?> <?php echo 'id='."TV_CODE".$_SESSION['i'] ?> class="form-control"  >
                     <?php
                     
-                        $data = new DataBase();
-                        $con = $data->connect();
-                        $v = new ModeleVehicule($con);
-                        $resultat = $v->get_type_vehicule();
+                    $url = 'http://127.0.0.1/Projet_Ntiers/GestionInterventions/api/vehicules/type/';
+                    $options = array(
+                        'http' => array(
+                            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                            'method'  => 'GET'
+                        )
+                    );
+                    $context  = stream_context_create($options);
+                    $result = file_get_contents($url, false, $context);
+                    //var_dump($result);
+                    
+                    if ($result === FALSE) {}
+                    $array = json_decode($result, true); 
 
                         echo '<option value="">---</option>';
                         
-                        foreach ($resultat as $r) {
+                        foreach ($array as $r) {
                                 
                                 echo '<option value="'. $r['TV_CODE'] .'">'. $r['TV_CODE'] .'</option>';
                             

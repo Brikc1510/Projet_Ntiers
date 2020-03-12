@@ -1,33 +1,23 @@
 <?php
-
-class ModeleIntervention
-{
-    private $con;
-
-
-    function __construct($con)
-    {
-        $this->con =$con;
-    }
+require_once dirname(__FILE__).'/dataBase.php';
 
     function get_type_intervention()
     {
-        $exe = $this->con->prepare('SELECT TI_CODE FROM type_intervention');
+        $m=new DataBase();
+        $con= $m->connect();
+        $exe = $con->prepare('SELECT TI_CODE FROM type_intervention');
         
         $exe->execute();
         $Liste = array(); 
         
-        while($result = $exe->fetch(PDO::FETCH_OBJ)) {
-    
-            $row=array("TI_CODE" => $result->TI_CODE);
-            array_push($Liste,$row);
-    
-        }
-    
-         
-    
-        return $Liste;
-    }
-}
+        $result =$exe->fetchAll(PDO::FETCH_OBJ);
+        //header('Content-Type: application/json');
+         echo json_encode($result, JSON_PRETTY_PRINT);
+       
+        //return $Liste;
+
+    } 
+    get_type_intervention();
+
 
 ?>

@@ -184,6 +184,54 @@ class UserController {
             }
         }
     }
+    public function information()
+    {
+        require_once MODELS.DS.'usersM.php';
+       
+        $m=new UsersModel();
+        $info=$m->information();
+       // var_dump($info);
+        //echo $info;
+        require_once CLASSES.DS.'view.php';
+        $v=new View();
+        $v->setVar('info',$info);
+        $v->render('profil','view');
+    }
+
+    public function modifier()
+    {
+        require_once MODELS.DS.'usersM.php';
+       
+        $m=new UsersModel();
+        $info=$m->information();
+       // var_dump($info);
+        //echo $info;
+        require_once CLASSES.DS.'view.php';
+        $v=new View();
+        $v->setVar('info',$info);
+        $v->render('profil','modifier');
+    }
+    public function modifierbdd()
+    {
+        $name = $_POST['n'];
+        $pr = $_POST['prenom'];
+        $sexe = $_POST['sexe'];
+        $dated = $_POST['dated'];
+        $add = $_POST['add'];
+        $poste = $_POST['poste'];
+        $tele = $_POST['tele'];
+        $email = $_POST['email'];
+        $datee = $_POST['datee'];
+        //echo $datee;
+        require_once MODELS.DS.'usersM.php';
+       
+        $m=new UsersModel();
+        $m->update($name,$pr,$sexe,$dated,$add,$poste,$tele,$email,$datee);
+
+        $this->information();
+        
+        
+    }
    
    
 }

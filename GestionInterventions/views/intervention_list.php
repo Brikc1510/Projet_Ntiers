@@ -17,16 +17,47 @@
                 <div class="form-group">
                     <label class="control-label">Type Intervention</label>
                     <select type="text" name="type" class="form-control">
-                           <?php echo '<option value="AP">AP</option>';
+                    <?php
+                    
+                    /* $data = new DataBase();
+                    $con = $data->connect();
+                    $v = new ModeleIntervention($con);
+                    $resultat = $v->get_type_intervention();
+
+                    echo '<option value="">---</option>';
+                    
+                    foreach ($resultat as $r) {
+                            
+                            echo '<option value="'. $r['TI_CODE'] .'">'. $r['TI_CODE'] .'</option>';
                         
-                            foreach ($typesinterventionlist as $r) {
-                                
-                                echo '<option value="'. $r['TI_CODE'] .'">'. $r['TI_CODE'] .'</option>';
+                        }
+                    echo '</select>';
+                     */
+
+                     $url = 'http://127.0.0.1/Projet_Ntiers/GestionInterventions/api/interventions/';
+                    $options = array(
+                        'http' => array(
+                            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                            'method'  => 'GET'
+                        )
+                    );
+                    $context  = stream_context_create($options);
+                    $result = file_get_contents($url, false, $context);
+                    //var_dump($result);
+                    
+                    if ($result === FALSE) {}
+                    $array = json_decode($result, true); 
+                    
+                    echo '<option value="">---</option>';
+                    
+                    foreach ($array as $r) {
                             
-                            }
-                            
-                        ?>
-                    </select>
+                            echo '<option value="'. $r['TI_CODE'] .'">'. $r['TI_CODE'] .'</option>';
+                        
+                        }
+                    echo '</select>';
+                        
+                ?> 
                 </div>
 
                 <div class="form-group">

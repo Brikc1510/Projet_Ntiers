@@ -88,8 +88,6 @@ let i =0;
 <?php 
         require_once VIEWS.DS.'common'.DS.'entete.php'; 
         require_once API.DS.'dataBase.php';
-        require_once API.DS.'ModeleVehicule.php';
-        require_once API.DS.'ModeleIntervention.php';
     
 ?>
 <div class="col-md-6 col-xs-12 col-md-offset-3 spacer" >
@@ -117,7 +115,7 @@ let i =0;
                     <select type="text" name="type"  class="form-control"  >
                     <?php
                     
-                        $data = new DataBase();
+                        /* $data = new DataBase();
                         $con = $data->connect();
                         $v = new ModeleIntervention($con);
                         $resultat = $v->get_type_intervention();
@@ -130,9 +128,33 @@ let i =0;
                             
                             }
                         echo '</select>';
+                         */
+
+                         $url = 'http://127.0.0.1/Projet_Ntiers/GestionInterventions/api/interventions/';
+                        $options = array(
+                            'http' => array(
+                                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                                'method'  => 'GET'
+                            )
+                        );
+                        $context  = stream_context_create($options);
+                        $result = file_get_contents($url, false, $context);
+                        //var_dump($result);
                         
+                        if ($result === FALSE) {}
+                        $array = json_decode($result, true); 
+                        
+                        echo '<option value="">---</option>';
+                        
+                        foreach ($array as $r) {
+                                
+                                echo '<option value="'. $r['TI_CODE'] .'">'. $r['TI_CODE'] .'</option>';
                             
-                        ?>
+                            }
+                        echo '</select>';
+                            
+                    ?> 
+                   
                 </div>
                 <div class="form-group">
                     <label class="control-label">Requérant</label>
@@ -175,14 +197,23 @@ let i =0;
                     <select type="text" <?php echo 'name='."TV_CODE".$_SESSION['i'] ?> <?php echo 'id='."TV_CODE$i" ?> class="form-control"  >
                     <?php
                     
-                        $data = new DataBase();
-                        $con = $data->connect();
-                        $v = new ModeleVehicule($con);
-                        $resultat = $v->get_type_vehicule();
+                    $url = 'http://127.0.0.1/Projet_Ntiers/GestionInterventions/api/vehicules/type/';
+                    $options = array(
+                        'http' => array(
+                            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                            'method'  => 'GET'
+                        )
+                    );
+                    $context  = stream_context_create($options);
+                    $result = file_get_contents($url, false, $context);
+                    //var_dump($result);
+                    
+                    if ($result === FALSE) {}
+                    $array = json_decode($result, true); 
 
                         echo '<option value="">---</option>';
                         
-                        foreach ($resultat as $r) {
+                        foreach ($array as $r) {
                                 
                                 echo '<option value="'. $r['TV_CODE'] .'">'. $r['TV_CODE'] .'</option>';
                             

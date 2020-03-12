@@ -14,14 +14,12 @@ class InterventionController {
         include_once MODELS.DS.'Intervention.php';
         include_once MODELS.DS.'Vehicule.php';
         include_once MODELS.DS.'Personne.php';
-        include_once API.DS."ModeleVehicule.php";
         include_once API.DS."ModelePersonnel.php";
         include_once API.DS."dataBase.php";
         require_once CLASSES.DS.'view.php';
 
         $data = new DataBase();
         $con = $data->connect();
-        $v = new ModeleVehicule($con);
         $p = new ModelePersonnel($con);
         if(!empty($_POST['opm']))
         {
@@ -64,7 +62,19 @@ class InterventionController {
             if(isset($_POST['TV_CODE'.$k]))
             {
                 $mat =$_POST['V_IMMATRICULATION'.$k];
-                $result = $v->get_id_vehicule($mat);
+                $url = 'http://127.0.0.1/Projet_Ntiers/GestionInterventions/api/vehicules/id/'.$mat;
+                    $options = array(
+                        'http' => array(
+                            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                            'method'  => 'GET'
+                        )
+                    );
+                    $context  = stream_context_create($options);
+                    $result = file_get_contents($url, false, $context);
+                    //var_dump($result);
+                    
+                    if ($result === FALSE) {}
+                    $result = json_decode($result, true); 
                 $vehicule = new Vehicule($result['V_ID'],$_POST['TV_CODE'.$k]
                                     ,$_POST['dateDepart'],$_POST['dateArrivee'],
                                     $_POST['dateRetour'],$_POST['heureDepart'],
@@ -72,9 +82,21 @@ class InterventionController {
 
                 $gestionVehi = new VehiculeModel();
                 $gestionVehi->ajouterVehicule($vehicule,$_POST['id']);  
-
-                $resul =$v->get_type_vehicule_role($_POST['TV_CODE'.$k]);
+                $v=$_POST['TV_CODE'.$k];
                 
+                $url = 'http://127.0.0.1/Projet_Ntiers/GestionInterventions/api/vehicules/role/'.$v;
+                    $options = array(
+                        'http' => array(
+                            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                            'method'  => 'GET'
+                        )
+                    );
+                    $context  = stream_context_create($options);
+                    $result1 = file_get_contents($url, false, $context);
+                    //var_dump($result);
+                    
+                    if ($result === FALSE) {}
+                    $resul = json_decode($result1, true); 
                 $count = sizeof($resul);
                 $gestionPer = new PersonneModel();
                 for($i = 0; $i < $count;$i++)
@@ -111,17 +133,14 @@ class InterventionController {
     }
     public function listeParticipation(){
       require_once MODELS.DS.'interventionM.php';
-      require_once API.DS.'dataBase.php';
-      require_once API.DS.'ModeleIntervention.php';
-      $con=new DataBase();
-      $con=$con->connect();
-      $mo=new ModeleIntervention($con);
+      
+     
+                        
       $m=new InterventionModel();
       $interventions=$m->listAllParticipation();
-      $typesintervention=$mo->get_type_intervention();
+    
       require_once CLASSES.DS.'view.php';
       $v=new View();
-      $v->setVar('typesinterventionlist',$typesintervention);
       $v->setVar('interventionlist',$interventions);
       $v->render('intervention','list');
     }
@@ -179,7 +198,6 @@ class InterventionController {
         $v=new View();
         if ($intervention=$m->listOne($id)) 
         $v->setVar('i',$intervention);
-        //$v->setVar('intervention',$intervention);
         $v->render('intervention','form');
 
     }
