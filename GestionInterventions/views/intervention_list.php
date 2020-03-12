@@ -117,6 +117,7 @@
 
                     
                     <td><?php if (isset($i->id)) echo '<a href="index.php?c=intervention&m=view&id='.$i->id.'" data-toggle="tooltip" title="Voir" class="btn btn-success btn-sm"><i class="fas fa-eye">Voir</i></a>';?></td>
+                    <td><?php if (isset($i->id)) echo '<a href="index.php?c=intervention&m=edit&id='.$i->id.'" data-toggle="tooltip" title="Modifier" class="btn btn-warning  btn-sm"><i class="fas fa-edit">Modifier</i></a>';?></td>
                     <td><?php if ($i->etat == "aModifier" && ($_SESSION['GP_ID']==2 || $_SESSION['GP_ID']==3 ||$_SESSION['GP_ID']==4) && $_SESSION['user']== $i->idChef) echo '<a href="index.php?c=intervention&m=edit&id='.$i->id.'" data-toggle="tooltip" title="Modifier" class="btn btn-warning  btn-sm">Modifier<i class="fas fa-edit"></i></a>';?></td>
 
 
