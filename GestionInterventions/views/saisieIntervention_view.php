@@ -97,7 +97,7 @@ let i =0;
           <!-- affichage de login de l'utulisateur qui a connecte
          <//?php echo "le login de la personne connecte est "; 
 				   echo $_SESSION['user'];?>  -->
-        <div class="panel-heading"><h4>Saisie d'une intervention</h4></div>
+        <div class="panel-heading text-center"><h4>Saisie d'une intervention</h4></div>
         <div class="panel-body">
             <form method="post" action="index.php?c=intervention&m=add"  >
                 <div class="form-group">

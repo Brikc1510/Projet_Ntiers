@@ -2,6 +2,7 @@
 
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Interventions</title>
     <link rel="stylesheet" type="text/css" href="vendors/css/myStyle.css">
     <link rel="stylesheet" type="text/css" href="vendors/css/bootstrap.min.css">
