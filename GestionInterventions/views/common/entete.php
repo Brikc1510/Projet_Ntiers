@@ -13,30 +13,30 @@
            //Droit pour pompier simple
            case 0:
            echo '<li><a href="index.php?c=user&m=information">Profil</a></li>';
-           echo '<li><a href="index.php?c=intervention&m=index">Mes Participations</a></li>';
+           echo '<li><a href="index.php?c=intervention&m=index">Mes participations</a></li>';
 
           break;
 
           //Droit pour chef de section
           case 2:
           echo '<li><a href="index.php?c=user&m=information">Profil</a></li>';
-          echo '<li><a href="index.php?c=intervention&m=afficher">Saisi Interventions</a></li>';
-          echo '<li><a href="index.php?c=intervention&m=index">Mes Interventions</a></li>';
+          echo '<li><a href="index.php?c=intervention&m=afficher">Saisie intervention</a></li>';
+          echo '<li><a href="index.php?c=intervention&m=index">Mes interventions</a></li>';
 
           break;
           //Droit pour chef de centre
           case 3:
           echo '<li><a href="index.php?c=user&m=information">Profil</a></li>';
-            echo '<li><a href="index.php?c=intervention&m=afficher">Saisi Interventions</a></li>';
-            echo '<li><a href="index.php?c=intervention&m=index">Tous Les Interventions</a></li>';
+            echo '<li><a href="index.php?c=intervention&m=afficher">Saisie intervention</a></li>';
+            echo '<li><a href="index.php?c=intervention&m=index">Toutes les interventions</a></li>';
             echo '<li><a href="index.php?c=intervention&m=listeInterAvalider">Interventions à valider</a></li>';
             
           break;
           //Droit pour admin
           case 4:
           echo '<li><a href="index.php?c=user&m=information">Profil</a></li>';
-            echo '<li><a href="index.php?c=intervention&m=afficher">Saisi Interventions</a></li>';
-            echo '<li><a href="index.php?c=intervention&m=index">Tous Les Interventions</a></li>';
+            echo '<li><a href="index.php?c=intervention&m=afficher">Saisie intervention</a></li>';
+            echo '<li><a href="index.php?c=intervention&m=index">Toutes les interventions</a></li>';
             echo '<li><a href="index.php?c=intervention&m=listeInterAvalider">Interventions à valider</a></li>';
           break;
         }
