@@ -42,7 +42,7 @@ function fAge($date) {
         <i class="fa fa-user">
         </i>
        </div>
-       <input id="Name (Full name)" name="n" type="text" value=<?php if (isset($e->P_NOM)) echo $e->P_NOM; ?> class="form-control input-md">
+       <input id="Name (Full name)" name="n" type="text" value="<?php if (isset($e->P_NOM)) echo $e->P_NOM; ?>" class="form-control input-md">
       </div>
       </div>
     
@@ -56,7 +56,7 @@ function fAge($date) {
         <i class="fa fa-user">
         </i>
        </div>
-       <input id="Name" name="prenom" type="text"  value=<?php if (isset($e->P_PRENOM)) echo $e->P_PRENOM; ?> class="form-control input-md">
+       <input id="Name" name="prenom" type="text"  value="<?php if (isset($e->P_PRENOM)) echo $e->P_PRENOM; ?>" class="form-control input-md">
       </div>
       </div>
 
@@ -71,7 +71,7 @@ function fAge($date) {
      <i class="fa fa-birthday-cake"></i>
         
        </div>
-       <input id="Date Of Birth" name="dated" type="text" value=<?php if (isset($e->P_BIRTHDATE)) echo $e->P_BIRTHDATE; ?> class="form-control input-md">
+       <input id="Date Of Birth" name="dated" type="text" value="<?php if (isset($e->P_BIRTHDATE)) echo $e->P_BIRTHDATE; ?>" class="form-control input-md">
       </div>
   
     
@@ -85,7 +85,7 @@ function fAge($date) {
       <i class="fa fa-male" style="font-size: 20px;"></i>
         
        </div>
-      <input id="Father" name="sexe" type="text" value=<?php if (isset($e->P_SEXE)) echo $e->P_SEXE; ?> class="form-control input-md">
+      <input id="Father" name="sexe" type="text" value="<?php if (isset($e->P_SEXE)) echo $e->P_SEXE; ?>" class="form-control input-md">
 
       </div>
     
@@ -99,7 +99,7 @@ function fAge($date) {
      <i class="glyphicon glyphicon-home"></i>
         
        </div>
-    <input id="Availability time" name="add" type="text" value=<?php if (isset($e->P_ADDRESS)) echo $e->P_ADDRESS; ?> class="form-control input-md">
+    <input id="Availability time" name="add" type="text" value="<?php if (isset($e->P_ADDRESS)) echo $e->P_ADDRESS; ?>" class="form-control input-md">
     
       </div>
   
@@ -115,7 +115,7 @@ function fAge($date) {
      <i class="fa fa-briefcase"></i>
         
        </div>
-      <input id="Primary Occupation" name="poste" type="text" value=<?php if (isset($e->P_PROFESSION)) echo $e->P_PROFESSION; ?> class="form-control input-md">
+      <input id="Primary Occupation" name="poste" type="text" value="<?php if (isset($e->P_PROFESSION)) echo $e->P_PROFESSION; ?>" class="form-control input-md">
       </div>
   
     
@@ -130,7 +130,7 @@ function fAge($date) {
      <i class="fa fa-phone"></i>
         
        </div>
-    <input id="Phone number " name="tele" type="text"  value=<?php if (isset($e->P_PHONE)) echo $e->P_PHONE; ?> class="form-control input-md">
+    <input id="Phone number " name="tele" type="text"  value="<?php if (isset($e->P_PHONE)) echo $e->P_PHONE; ?>" class="form-control input-md">
     
       </div>
       </div>
@@ -143,7 +143,7 @@ function fAge($date) {
      <i class="fa fa-envelope-o"></i>
         
        </div>
-    <input id="Email Address" name="email" type="text"  value=<?php if (isset($e->P_EMAIL)) echo $e->P_EMAIL; ?>  class="form-control input-md">
+    <input id="Email Address" name="email" type="text"  value="<?php if (isset($e->P_EMAIL)) echo $e->P_EMAIL; ?>" class="form-control input-md">
     
       </div>
   
@@ -158,7 +158,7 @@ function fAge($date) {
      <i class="fa fa-clock-o"></i>
         
        </div>
-    <input id="Availability time" name="datee" type="text" value=<?php if (isset($e->P_DATE_ENGAGEMENT)) echo $e->P_DATE_ENGAGEMENT; ?> class="form-control input-md">
+    <input id="Availability time" name="datee" type="text" value="<?php if (isset($e->P_DATE_ENGAGEMENT)) echo $e->P_DATE_ENGAGEMENT; ?>" class="form-control input-md">
     
       </div>
   
@@ -179,9 +179,7 @@ function fAge($date) {
 </form>
 <?php }?>
 </div>
-<div class="col-md-2 hidden-xs">
-<img src="http://websamplenow.com/30/userprofile/images/avatar.jpg" class="img-responsive img-thumbnail ">
-  </div>
+
 
 
 </div>

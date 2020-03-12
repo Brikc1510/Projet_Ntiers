@@ -116,11 +116,6 @@ class InterventionModel {
             $commentaire = null;
             $hD =$heureDebut;
             $hF =$heureFin;
-            echo $hD;
-            echo $hF;
-            echo $dateDebut;
-            echo $dateFin;
-     
            
             $exe->bindParam(':commune', $c);
             $exe->bindParam(':adresse', $adresse);
