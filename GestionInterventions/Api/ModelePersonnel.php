@@ -95,7 +95,40 @@ class ModelePersonnel
        
        
         return $Liste;
-    }      
+    }   
+    public function information($code)
+    {
+        $st = $this->con->prepare("SELECT * from pompier where P_code=? ");
+        $st->bindParam(1, $code);
+        $res=($st->execute())?$st->fetchAll(PDO::FETCH_OBJ): null;
+        $dbh = null;
+        return $res;
+        //var_dump($users);
+        return $res;
+
+       
+    }   
+    public function update($code,$name,$pr,$sexe,$dated,$add,$poste,$tele,$email,$datee)
+    {
+        
+        $data =[
+            'name'=>$name,
+            'pr'=>$pr,
+            'sexe'=>$sexe,
+            'dated'=>$dated,
+            'add'=>$add,
+            'poste'=>$poste,
+            'tele'=>$tele,
+            'email'=>$email,
+            'datee'=>$datee,
+            'code'=>$code
+        ];
+        $st = $this->con->prepare("UPDATE `pompier` SET P_NOM=:name,P_PRENOM=:pr,P_SEXE=:sexe,P_BIRTHDATE=:dated, P_ADDRESS=:add,P_PROFESSION=:poste,P_PHONE=:tele,P_EMAIL=:email,P_DATE_ENGAGEMENT=:datee WHERE P_CODE=:code");
+        $st->execute($data);
+        return "ok";
+       
+       
+    }   	   
 
     /* if(!empty($_GET['id']) && !empty($_GET['pass']))
     {   $pass=$_GET['pass'];

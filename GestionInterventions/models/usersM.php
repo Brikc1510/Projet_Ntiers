@@ -41,4 +41,22 @@ class UsersModel
         return $p->changer($code,$pass);
 
     }
+    public function information()
+    {   
+        $code=$_SESSION['name'];
+
+        $p = new ModelePersonnel($this->db);
+        return  $p-> information($code);
+        //var_dump($p);
+        //return $p
+    }
+
+    public function update($name,$pr,$sexe,$dated,$add,$poste,$tele,$email,$datee)
+    {
+        $code=$_SESSION['name'];
+        
+        $p = new ModelePersonnel($this->db);
+        return $p-> update($code,$name,$pr,$sexe,$dated,$add,$poste,$tele,$email,$datee);
+
+    }
 }
