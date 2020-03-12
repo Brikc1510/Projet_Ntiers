@@ -1,5 +1,3 @@
-<!-- formulaire qui recupere tous les informations de la personne sur le formulaire puis on peux ly modifier  -->
-
 <?php
 function fAge($date) {
   $datetime1 = new DateTime("today");
@@ -17,7 +15,7 @@ function fAge($date) {
 <!--     <link href="css/bootstrap.min.css" rel="stylesheet"> -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
 
-<?php require_once VIEWS.DS.'common'.DS.'enteteU.php';  ?>
+<?php require_once VIEWS.DS.'common'.DS.'entete.php';  ?>
 </head>
 <body>
 
@@ -170,7 +168,7 @@ function fAge($date) {
 <div class="form-group">
   <label class="col-md-4 control-label" ></label>  
   <div class="col-md-4">
-  <button type="submit" class="btn btn-success" name="submit"><span class="glyphicon glyphicon-thumbs-up">Connecter</button>
+  <button type="submit" class="btn btn-success" name="submit"><span class="glyphicon glyphicon-thumbs-up">Changer</button>
   <!-- <a href="#" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Submit</a> -->
   <a href="index.php?c=user&m=modifier&id='.$e->P_CODE." class="btn btn-danger" value=""><span class="glyphicon glyphicon-remove-sign"></span> Clear</a>
     

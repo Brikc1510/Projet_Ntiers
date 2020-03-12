@@ -1,5 +1,3 @@
-  <!-- page de pour voir le profil et en bas y'a le button modifier pour modifier les information -->
-
 <?php
 function fAge($date) {
   $datetime1 = new DateTime("today");
@@ -12,10 +10,12 @@ function fAge($date) {
     <title>Interventions</title>
     <link rel="stylesheet" type="text/css" href="vendors/css/myStyle.css">
     <link rel="stylesheet" type="text/css" href="vendors/css/bootstrap.min.css">
+  
 </head>
+<?php require_once VIEWS.DS.'common'.DS.'enteteU.php';  ?>
 <body>
 
-<?php require_once VIEWS.DS.'common'.DS.'enteteU.php';  ?>
+
 
 
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -52,7 +52,6 @@ function fAge($date) {
                             <li><p><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span>  <?php if (isset($e->P_EMAIL)) echo $e->P_EMAIL; ?></p></li>
                           </ul>
                       </div>
-                      <!-- button pour modifier  -->
                       <?php if (isset($e->P_CODE)) echo ' <a href="index.php?c=user&m=modifier&id='.$e->P_CODE.'" class="glyphicon glyphicon-edit" data-toggle="tooltip" title="Modifier l\'employé"><i class="fas fa-edit"></i> Modifier</a>';?>
                 </div>
             </div>

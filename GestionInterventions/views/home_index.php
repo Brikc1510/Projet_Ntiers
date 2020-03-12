@@ -2,6 +2,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <!------ Include the above in your HEAD tag ---------->
 
 <!doctype html>
@@ -14,25 +15,27 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./GestionInterventions/vendors/css/mystyle.css">
     <link rel="icon" href="Favicon.png">
-
+    <link rel="stylesheet" href="../vendors/css/mystyle.css">
     <!-- Bootstrap CSS -->
+   
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
-    
 </head>
+
 <body>
-<div>
-<nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
+<?php
+echo "<body style='background: url(https://wallpapercave.com/wp/H4Wx7X8.jpg); background-repeat: no-repeat;'>";
+?>
+<div>  
    <br>
    <br>
-</nav>
 <main class="login-form" >
     <div class="cotainer">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
+
                     <div class="card-header">Register</div>
                     <div class="card-body">
                         <form action="index.php?c=user&m=login" method="post">
@@ -75,8 +78,6 @@
     </div>
 
 </main>
-
-
 
 
 

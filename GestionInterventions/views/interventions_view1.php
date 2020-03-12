@@ -12,10 +12,9 @@
 <div class="col-md-12 col-xs-12 spacer">
     <div class="panel panel-info">
         <div class="panel-heading text-center">Liste des interventions</div>
-       <!-- // affichage de login de l'utulisateur qui a connecte -->
-         <!-- <//?php echo "le login de la personne connecte est ";
-                    $s= $_SESSION['user'];
-				   echo $s;?> -->
+       <!-- affichage de login de l'utulisateur qui a connecte
+         <//?php echo "le login de la personne connecte est "; 
+				   echo $_SESSION['user'];?>  -->
                    <div class="row">
         <table class="table table-sm">
             <thead>

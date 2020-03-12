@@ -15,6 +15,7 @@ class UserController {
     {
         require_once MODELS.DS.'usersM.php';
         require_once CLASSES.DS.'view.php';
+        //session_start();
         $name = $_POST['user'];
         $pass = $_POST['pass'];
         $_SESSION['name']=$name;
@@ -31,22 +32,32 @@ class UserController {
         if ($resultat->rowCount() == 1) {
             while ($donnees = $resultat->fetch()) {
                 $type = $donnees['P_GRADE'];
-                if ($type == "SAP2") {
+                $_SESSION["GP_ID"]=$donnees['GP_ID'];
+                $_SESSION["user"]=$donnees['P_CODE'];
+                switch($_SESSION['GP_ID'])
+                {
+                    case 2:
                      //recuprer le Login de celui qui a connecte 
-                     $_SESSION["user"]=$donnees['P_CODE'];
+                     
                     //header("Location: vue/saisieIntervention.php");
-                    $v->change("entete.php");
-                    $v->changeb(false);
+                    //$v->change("entete.php");
+                    //$v->changeb(false);
                     $v->render('saisieIntervention','view');
-                }
-               else 
-               {
-                     //recuprer le Login de celui qui a connecte 
-                   $_SESSION["user"]=$donnees['P_CODE'];
-                    //header("Location: vue/interventions.php");
-                    $v->change("enteteU.php");
-                    $v->changeb(false);
-                    $v->render('interventions','view1');
+                    break;
+                    case 3:
+                    $v->render('saisieIntervention','view');
+                    break;
+                    case 4 :
+                    $v->render('saisieIntervention','view');
+                    break;
+              
+                    case 0:
+                    require_once MODELS.DS.'interventionM.php';
+                    $m=new InterventionModel();
+                    $interventions=$m->listAllParticipation();
+                    $v->setVar('interventionlist',$interventions);
+                    $v->render('intervention','list');
+                    break;
                 }
             }
         } else {
@@ -63,7 +74,7 @@ class UserController {
         //Pas de données à gérer
         //La vue à afficher est la vue index
         require_once CLASSES.DS.'view.php';
-        session_start();
+        //session_start();
         session_unset();
         session_destroy();
         $v=new View();
@@ -173,10 +184,8 @@ class UserController {
             }
         }
     }
-   
-    // envoir au controleur pour recupere les donnes, une fois recuperer ils seront renvoyé a la  VIEW_PROFIL
-
-    public function information()
+	
+	public function information()
     {
         require_once MODELS.DS.'usersM.php';
        
@@ -189,7 +198,7 @@ class UserController {
         $v->setVar('info',$info);
         $v->render('profil','view');
     }
-    // appele la methode information pour recupere  les donnes pour ly mettre dans les formulaire 
+
     public function modifier()
     {
         require_once MODELS.DS.'usersM.php';
@@ -203,8 +212,6 @@ class UserController {
         $v->setVar('info',$info);
         $v->render('profil','modifier');
     }
-
-    //appelle a la methode update dans le model pour mise a jour de la base de données
     public function modifierbdd()
     {
         $name = $_POST['n'];
@@ -230,4 +237,7 @@ class UserController {
 
 
 }
+   
+   
+
 ?>

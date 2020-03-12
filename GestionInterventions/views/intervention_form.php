@@ -5,36 +5,26 @@ function fAge($date) {
     $interval = $datetime2->diff($datetime1);
     return $interval->format('%y');
 }  ?>
+<html>
+<head>
+    <title>Interventions</title>
+    <link rel="stylesheet" type="text/css" href="vendors/css/myStyle.css">
+    <link rel="stylesheet" type="text/css" href="vendors/css/bootstrap.min.css">
+</head>
+<body>
+
+<?php require_once VIEWS.DS.'common'.DS.'entete.php';  ?>
 <main role="main" class="container">
     <div class="starter-template">
         <h1>Edition d'une intervention</h1>
     </div>
-
-    <div class="row">
-        <label class="col-md-4 control-label">Id:<?php echo $i->id ?></label>
-    </div>
-    <div class="row">
-        <label class="col-md-4 control-label">P_CODE :</label>
-        <div class="col-md-8">
-            <input type="text" name="P_CODE" value="<?php echo $i->P_CODE ?>" class="form-control">
-        </div>
-    </div>
-    <div class="row">
-        <label class="col-md-4 control-label">Nom :</label>
-        <div class="col-md-8">
-            <input type="text" name="nom" value="<?php echo $i->nom ?>" class="form-control">
-        </div>
-    </div>
-     <div class="row">
-        <label class="col-md-4 control-label">Prenom :</label>
-        <div class="col-md-8">
-            <input type="text" name="prenom" value="<?php echo $i->prenom ?>" class="form-control">
-        </div>
-    </div>
+    <?php echo '<form method="post" action="index.php?c=intervention&m=modified&id='.$i->id.'">'; ?>
     <div class="row">
     <label class="col-md-4 control-label">Commune :</label>
     <div class="col-md-8">
         <input type="text" name="commune" value="<?php echo $i->commune ?>" class="form-control">
+        <input type="hidden" name="idChef" value="<?php echo $i->idChef ?>" class="form-control">
+        <input type="hidden" name="responsable" value="<?php echo $i->responsable ?>" class="form-control">
     </div>
     </div>
     <div class="row">
@@ -68,12 +58,6 @@ function fAge($date) {
             <input type="time" name="heureDebut" value="<?php echo $i->heureDebut ?>" class="form-control">
         </div>
     </div>
-    <!--<div class="row">
-        <label class="col-md-4 control-label">Date d'entrée dans l'entreprise :</label>
-        <div class="col-md-8">-->
-            <?php //if (isset($e->HireDate)) echo date('d/m/Y',strtotime($e->HireDate)). ' ('.fAge($e->HireDate).' ans d\'ancienneté)'; ?>
-        <!--</div>
-    </div>-->
 
     <div class="row">
         <label class="col-md-4 control-label">Date fin :</label>
@@ -92,29 +76,16 @@ function fAge($date) {
     <div class="row">
         <label class="col-md-4 control-label">OPM :</label>
         <div class="col-md-8">
-            <input type="text" name="iop" value="<?php echo $i->opm ?>" class="form-control">
+            <input type="checkbox" name="iop" value="1" class="form-control">
         </div>
     </div>
     <div class="row">
         <label class="col-md-4 control-label">Important :</label>
         <div class="col-md-8">
-            <input type="text" name="important" value="<?php echo $i->important ?>" class="form-control">
+            <input type="checkbox" name="important" value="1" class="form-control">
         </div>
     </div>
-    <div class="row">
-        <label class="col-md-4 control-label">Responsable :</label>
-        <div class="col-md-8">
-            <input type="text" name="responsable" value="<?php echo $i->responsable ?>" class="form-control">
-        </div>
-    </div>
-    <div class="row">
-        <label class="col-md-4 control-label">TV_CODE :</label>
-        <div class="col-md-8">
-            <input type="text" name="TV_CODE" value="<?php echo $i->TV_CODE?>" class="form-control">
-        </div>
-    </div>
-
-
+   
     <div class="row">
         <label class="col-md-4 control-label">Date depart :</label>
         <div class="col-md-8">
@@ -156,13 +127,23 @@ function fAge($date) {
             <input type="time" name="heureRetour" value="<?php echo $i->heureRetour ?>" class="form-control">
         </div>
     </div>
+    <br>
+    <div class="row">
+    <label class="col-md-4 control-label">Ce que vous devez modifier :</label>
+        <div class="col-md-8">
+            <textarea type="time"  readonly class="form-control"><?php echo $i->commentaire ?></textarea>
+        </div>
+    </div>
+    <br>
     <div class="row">
         <label class="col-md-4 control-label"></label>
         <div class="col-md-8">
-            <input type="submit" value="Update" class="btn btn-primary" />
+            <input type="submit" value="Modifier" class="btn btn-primary" />
         </div>
     </div>
-
+</form>
 
 
 </main><!-- /.container -->
+</body>
+</html>

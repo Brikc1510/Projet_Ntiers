@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 
 class ModelePersonnel
@@ -15,7 +15,7 @@ class ModelePersonnel
         {
             if (!empty($name) && !empty($pass)) {
     
-                $st = $this->con->prepare("select P_CODE,P_MDP,P_GRADE from pompier where P_CODE=? and P_MDP=?");
+                $st = $this->con->prepare("select P_CODE,P_MDP,P_GRADE,GP_ID from pompier where P_CODE=? and P_MDP=?");
                 $st->bindParam(1, $name);
     
                 $st->bindParam(2, $pass);
@@ -95,9 +95,9 @@ class ModelePersonnel
        
        
         return $Liste;
-    }      
-    // recprer les information de la base de données d'un pompier et les envoyer
-    public function information($code)
+    }  
+
+	 public function information($code)
     {
         $st = $this->con->prepare("SELECT * from pompier where P_code=? ");
         $st->bindParam(1, $code);
@@ -109,7 +109,6 @@ class ModelePersonnel
 
        
     }   
-    // faire la mise a jour a la base 
     public function update($code,$name,$pr,$sexe,$dated,$add,$poste,$tele,$email,$datee)
     {
         
@@ -130,8 +129,8 @@ class ModelePersonnel
         return "ok";
        
        
-    }   
-    
+    }   	
+
 
 
 

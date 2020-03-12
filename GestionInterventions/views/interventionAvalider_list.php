@@ -13,7 +13,7 @@
     <div class="panel panel-info">
         <div class="panel-heading text-center">Liste des interventions à valider</div>
         <?php  if ($interventionlistAvalider == null)
-                  echo '<p>Il y a aucun intervnetion à valider</p>
+                  echo '<p>Il y a aucune intervention à valider</p>
                   <style type="text/css"> p {color: #26b72b; text-align: center }</style>';
                 else
                 {
@@ -39,7 +39,7 @@
             <tbody>
             <?php  
            
-            foreach ($interventionlistAvalider as $j){  var_dump($j);?>
+            foreach ($interventionlistAvalider as $j){?>
                 <tr>
                    
                     <td><?php if (isset($j->id)) echo $j->id; ?></td>
