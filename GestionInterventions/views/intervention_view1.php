@@ -115,6 +115,7 @@ function fAge($date) {
 
 
     <br>
+    <div id="a">
     <?php if (isset($j->id)) echo '<form method="post" action="index.php?c=intervention&m=modifier&id='.$j->id.'" class="text-center">' ?> 
     <textarea name="modifier" value="modifier" rows="5"  cols="100" placeholder="Veuillez laisser un commentaire sur ce que le chef section doit modifie" required> </textarea>
     <br>                  
@@ -123,5 +124,6 @@ function fAge($date) {
     <?php if (isset($j->id)) echo '<form method="post" action="index.php?c=intervention&m=valider&id='.$j->id.'" class="text-center">' ?> 
                      <input type="submit" name="Valider" value="Valider" class="btn btn-success" />  
                 </form> 
+    </div>
 
 </main><!-- /.container -->

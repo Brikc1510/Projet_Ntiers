@@ -278,15 +278,24 @@ class InterventionController {
       
        require_once CLASSES.DS.'view.php';
        require_once MODELS.DS.'interventionM.php';
-       require_once API.DS.'dataBase.php';
-      require_once API.DS.'ModeleIntervention.php';
-      $con=new DataBase();
-      $con=$con->connect();
-      $mo=new ModeleIntervention($con);
+      $url = 'http://127.0.0.1/Projet_Ntiers/GestionInterventions/api/interventions/';
+                        $options = array(
+                            'http' => array(
+                                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                                'method'  => 'GET'
+                            )
+                        );
+                        $context  = stream_context_create($options);
+                        $result = file_get_contents($url, false, $context);
+                        //var_dump($result);
+                        
+                        if ($result === FALSE) {}
+                        $array = json_decode($result, true); 
+                        
+      
        $v=new View();
        $m=new InterventionModel();
-       $typesintervention=$mo->get_type_intervention();
-       $v->setVar('typesinterventionlist',$typesintervention);
+       $v->setVar('typesinterventionlist',$array);
        $filtres=$m->filtrer($_POST["DateD"],$_POST["DateF"],$_POST["etat"],$_POST['type']);
        $v->setVar('interventionlist',$filtres);
        $v->render('intervention','list');
